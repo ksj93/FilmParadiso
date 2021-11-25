@@ -31,7 +31,7 @@ https://docs.google.com/spreadsheets/d/12gIhYh5kRHpARted4n98zccuEwbHlNVeSzEoT_gQ
 https://drive.google.com/file/d/1uVG-Ze9m3uh4YvbrFRxYL9fxX7vXd9oF/view?usp=sharing
 
 ## ER図
-![ER図](https://user-images.githubusercontent.com/89897866/143448711-96c2e725-e33c-41d0-8cfc-3955e9f73f3b.png)
+![ER図](https://user-images.githubusercontent.com/89897866/143459117-ec01df32-8fc5-4824-acdf-a56b099d1fb7.png)
 
 ## 画面遷移図
 ![画面遷移図](https://user-images.githubusercontent.com/89897866/143448714-cf469c13-e726-472f-af4b-523f1257985a.png)
