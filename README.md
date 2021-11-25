@@ -34,4 +34,4 @@ https://drive.google.com/file/d/1uVG-Ze9m3uh4YvbrFRxYL9fxX7vXd9oF/view?usp=shari
 ![ER図](https://user-images.githubusercontent.com/89897866/143459117-ec01df32-8fc5-4824-acdf-a56b099d1fb7.png)
 
 ## 画面遷移図
-![画面遷移図](https://user-images.githubusercontent.com/89897866/143482539-1e82d39c-3592-412d-80dd-409755686b2b.png)
+![画面遷移図](https://user-images.githubusercontent.com/89897866/143489412-858179ae-17f2-4fc4-bae3-40dbc01b552f.png)
