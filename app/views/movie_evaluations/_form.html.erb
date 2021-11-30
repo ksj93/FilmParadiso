@@ -1,0 +1,48 @@
+<%= form_with(model: movie_evaluation, local: true) do |form| %>
+  <% if movie_evaluation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie_evaluation.errors.count, "error") %> prohibited this movie_evaluation from being saved:</h2>
+
+      <ul>
+      <% movie_evaluation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :映画識別id %>
+    <%=params[:movie_id]%>
+    <% if params[:select_movie].present? %>
+      <%= form.hidden_field :movie_id,:value => params[:movie_id] %>
+    <% end %>
+
+  </div>
+
+  <div class="field">
+    <%= form.label :一言評価 %>
+    <%= form.text_area :short_criticism, placeholder: '50字以内で映画を評言', size: "50x2" %>
+  </div>
+
+  <div class="field" id="star">
+    <%= form.label :評点 %>
+    <%= form.hidden_field :score, id: :review_star  %>
+  </div>
+
+  <script>
+  $('#star').raty({
+    size     : 36,
+    starOff:  '<%= asset_path('star-off.png') %>',
+    starOn : '<%= asset_path('star-on.png') %>',
+    starHalf: '<%= asset_path('star-half.png') %>',
+    scoreName: 'movie_evaluation[score]',
+    half: true,
+  });
+  </script>
+
+
+  <div class="actions">
+    <%= form.submit%>
+  </div>
+<% end %>

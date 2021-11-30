@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Short criticism:</strong>
+  <%= @movie_evaluation.short_criticism %>
+</p>
+
+<p>
+  <strong>Score:</strong>
+  <%= @movie_evaluation.score %>
+</p>
+ <!--星評価-->
+<div id="star-rate-<%= @movie_evaluation.id %>"></div>
+ <script>
+ $('#star-rate-<%= @movie_evaluation.id %>').raty({
+   size: 36,
+   starOff:  '<%= asset_path('star-off.png') %>',
+   starOn : '<%= asset_path('star-on.png') %>',
+   starHalf: '<%= asset_path('star-half.png') %>',
+   half: true,
+   readOnly: true,
+   score: <%= @movie_evaluation.score %>,
+ });
+ </script>
+<p>
+  <strong>Movie:</strong>
+  <%= @movie_evaluation.movie_id %>
+</p>
+
+<%= link_to 'Edit', edit_movie_evaluation_path(@movie_evaluation) %> |
+<%= link_to 'Back', movie_evaluations_path %>

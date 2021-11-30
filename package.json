@@ -1,5 +1,7 @@
 {
   "name": "film_paradiso",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "jquery": "^3.6.0"
+  }
 }
