@@ -1,0 +1,39 @@
+<h1>映画検索</h1>
+<div>
+  <%= form_with(model: search, local:true,method: :get) do |form| %>
+    <%=form.text_field:search_title,:placeholder => "映画のタイトルを入力して検索",size:50 %>
+    <%form.submit("search") %>
+  <% end %>
+</div>
+
+<%if params[:search_title].present? %>
+    <% @movieinfo = JSON.parse((Tmdb::Search.movie(params[:search_title])).to_json) %>
+    <h2><%= params[:search_title] %>の検索結果</h2>
+    =====================
+    <% i = 0 %>
+    <div class="card-wrapper">
+        <% while i < @movieinfo['table']['results'].count %>
+            <div class="card">
+                <div class="card-upperinfo">
+                    <%if @movieinfo['table']['results'][i]['table']['title'].present?%>
+                        <h2>タイトル</h2>
+                        <h3><%= link_to @movieinfo['table']['results'][i]['table']['title'],tops_path(@movieinfo['table']['results'][i]['table']['id']) %></h3>
+                    <%end%>
+
+                    <% if @movieinfo['table']['results'][i]['table']['release_date'].present? %>
+                        <h3>リリース</h3>
+                        <p class="release-date"><%= @movieinfo['table']['results'][i]['table']['release_date'] %></p>
+                    <%end%>
+                </div>
+
+
+                <% if @movieinfo['table']['results'][i]['table']['poster_path'].present? %>
+                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + @movieinfo['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
+                <%end%>
+                <p class="select_movie"><%=link_to "select",new_movie_evaluation_path(movie_id:@movieinfo['table']['results'][i]['table']['id'],select_movie:"true")%></p>
+            </div>
+            <% i += 1%>
+        <%end%>
+    </div>
+<%else%>
+<%end%>
