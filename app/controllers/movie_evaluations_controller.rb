@@ -1,5 +1,6 @@
 class MovieEvaluationsController < ApplicationController
   before_action :set_movie_evaluation, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   # GET /movie_evaluations or /movie_evaluations.json
   def index

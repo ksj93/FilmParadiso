@@ -1,10 +1,15 @@
 <h1>映画の詳細情報</h1>
 <% movieshow = JSON.parse((Tmdb::Movie.detail(@movie_evaluation.movie_id)).to_json) %>
   <div class="card">
-  <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "card-img" %>
+  <%if movieshow['table']['poster_path']== nil %>
+    <p>no image</p>
+  <% else %>
+    <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "card-img" %>
+  <% end %>
+
     <div class="card-upperinfo">
       <p>タイトル</p>
-      <p><%= movieshow['table']['title'] %></p>
+      <p><%= movieshow['table']['title']  %></p>
       <p>リリース</p>
       <p><%= movieshow['table']['release_date'] %></p>
       <p>上映時間</p>
@@ -19,9 +24,6 @@
       <p><%= movieshow['table']['overview'] %></p>
     </div>
   </div>
-
-
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Short criticism:</strong>
