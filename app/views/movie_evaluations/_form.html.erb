@@ -13,7 +13,13 @@
 
   <div class="field">
     <%= form.label :映画識別id %>
-    <%=params[:movie_id]%>
+    <%if movie_evaluation.movie_id.present? %>
+      <%=movie_evaluation.movie_id%>
+    <%else%>
+      <%=params[:movie_id]%>
+    <%end%>
+
+
     <% if params[:select_movie].present? %>
       <%= form.hidden_field :movie_id,:value => params[:movie_id] %>
     <% end %>
@@ -27,8 +33,15 @@
 
   <div class="field" id="star">
     <%= form.label :評点 %>
+    <%if movie_evaluation.score.present? %>
+      <div>
+        <%=movie_evaluation.score%>点
+      </div>
+    <%end%>
     <%= form.hidden_field :score, id: :review_star  %>
   </div>
+
+
 
   <script>
   $('#star').raty({

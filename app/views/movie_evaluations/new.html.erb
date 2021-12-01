@@ -2,6 +2,7 @@
 
 <%= render 'search', search: @movieinfo %>
 <% if params[:movie_id] %>
+  <%= render 'information',info:@movie_evaluation %>
   <%= render 'form', movie_evaluation: @movie_evaluation %>
 <% end %>
 <%= link_to 'Back', movie_evaluations_path %>

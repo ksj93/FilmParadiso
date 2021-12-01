@@ -1,0 +1,31 @@
+<%= form_with(model: info, local:true) do |form| %>
+  <% if info.movie_id.present? %>
+    <% movieshow = JSON.parse((Tmdb::Movie.detail(info.movie_id)).to_json) %>
+  <% else %>
+    <% movieshow = JSON.parse((Tmdb::Movie.detail(params[:movie_id])).to_json) %>
+  <% end %>
+    <div class="card">
+    <%if movieshow['table']['poster_path']== nil %>
+      <p>no image</p>
+    <% else %>
+      <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "card-img" %>
+    <% end %>
+
+      <div class="card-upperinfo">
+        <p>タイトル</p>
+        <p><%= movieshow['table']['title']  %></p>
+        <p>リリース</p>
+        <p><%= movieshow['table']['release_date'] %></p>
+        <p>上映時間</p>
+        <p><%= movieshow['table']['runtime'] %></p>
+        <p>ジャンル</p>
+        <p>
+          <% movieshow['table']['genres'].each do |genre| %>
+            <%= genre['table']['name'] %>
+          <% end %>
+        </p>
+        <p>あらすじ</p>
+        <p><%= movieshow['table']['overview'] %></p>
+      </div>
+    </div>
+<% end %>
