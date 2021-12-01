@@ -10,6 +10,23 @@
   </head>
 
   <body>
+    <% if user_signed_in? %>
+      <%= link_to "トップへ", tops_path %>
+      <%= link_to "映画評価投稿", new_movie_evaluation_path %>
+      <%= link_to "プロフィールへ", tops_path %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "トップへ", tops_path %>
+      <%= link_to "新規登録", new_user_registration_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+    <% end %>
+
+    <% if notice %>
+      <p class="alert alert-notice"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-error"><%= alert %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>
