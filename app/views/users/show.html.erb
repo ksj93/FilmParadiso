@@ -1,0 +1,5 @@
+<h1><%= @user.name %>様のプロフィール</h1>
+<p>名前 : <%= @user.name %></p>
+<p>メールアドレス : <%= @user.email %></p>
+<%= link_to "プロフィール編集", edit_user_registration_path %>
+<%= link_to "退会", user_registration_path ,method: :delete, data: { confirm: '退会になると、今まで作成した情報全てが削除されますが、本当に退会してもよろしいでしょうか?' } %>

@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :name,presence:true
-
+  has_many:movie_evaluations
 end

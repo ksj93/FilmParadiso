@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  get 'users/show'
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :movie_evaluations do
     collection do
       get 'search'
