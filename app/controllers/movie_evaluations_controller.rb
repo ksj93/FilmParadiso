@@ -23,6 +23,7 @@ class MovieEvaluationsController < ApplicationController
   # POST /movie_evaluations or /movie_evaluations.json
   def create
     @movie_evaluation = MovieEvaluation.new(movie_evaluation_params)
+    @movie_evaluation.user_id = current_user.id
     respond_to do |format|
       if @movie_evaluation.save
         format.html { redirect_to @movie_evaluation, notice: "Movie evaluation was successfully created." }
