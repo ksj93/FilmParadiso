@@ -1,0 +1,14 @@
+<h2>ユーザー一覧</h2>
+<% @users.each do |user| %>
+  <% if user.id != current_user.id %>
+    <p>
+      ユーザー名：
+      <%= link_to user.name , users_show_path %>
+    </p>
+    <p>
+      Eメールアドレス：
+      <%= user.email %>
+    </p>
+      <%= render 'follow_form', user: user %>
+  <% end %>
+<% end %>
