@@ -1,0 +1,39 @@
+<h1>映画の詳細情報</h1>
+<% movieshow = JSON.parse((Tmdb::Movie.detail(params[:id])).to_json) %>
+<% moviecast = JSON.parse((Tmdb::Movie.cast(params[:id])).to_json) %>
+<% moviedirector = JSON.parse((Tmdb::Movie.director(params[:id])).to_json) %>
+<div class="card-wrapper">
+  <div class="card">
+  <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "card-img" %>
+    <div class="card-upperinfo">
+      <p>タイトル</p>
+      <p><%= movieshow['table']['title'] %></p>
+      <p>リリース</p>
+      <p><%= movieshow['table']['release_date'] %></p>
+      <p>上映時間</p>
+      <p><%= movieshow['table']['runtime'] %></p>
+      <p>ジャンル</p>
+      <p>
+        <% movieshow['table']['genres'].each do |genre| %>
+          <%= genre['table']['name'] %>
+        <% end %>
+      </p>
+      <p>あらすじ</p>
+      <p><%= movieshow['table']['overview'] %></p>
+    </div>
+  </div>
+  <div>
+    <p>監督</p>
+    <% moviedirector.each do |director| %>
+      <p><%=director['table']['name']%></p>
+    <% end %>
+  </div>
+  <div>
+    <p>出演</p>
+    <% moviecast.each do |cast| %>
+      <p><%= cast['table']['name'] %></p>
+    <% end %>
+  </div>
+
+
+</div>

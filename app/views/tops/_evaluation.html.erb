@@ -1,0 +1,40 @@
+<table>
+  <thead>
+    <tr>
+      <th>サムネイル</th>
+      <th>映画タイトル</th>
+      <th>作成者</th>
+      <th>Short criticism</th>
+      <th>Score</th>
+      <th>Movie</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% movie_evaluations.each do |movie_evaluation| %>
+      <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
+      <tr>
+        <td>
+          <%if movieshow['table']['poster_path']== nil %>
+            <p>no image</p>
+          <% else %>
+            <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "thumbnail_img" %>
+          <% end %>
+        </td>
+        <td><%= link_to movieshow['table']['title'], top_path(movieshow['table']['id']) %></td>
+        <td><%= movie_evaluation.user.name %></td>
+        <td><%= movie_evaluation.short_criticism %></td>
+        <td><%= movie_evaluation.score %></td>
+        <td><%= movie_evaluation.movie_id %></td>
+        <td><%= link_to 'Show', movie_evaluation %></td>
+        <td><%= link_to 'Edit', edit_movie_evaluation_path(movie_evaluation) %></td>
+        <td><%= link_to 'Destroy', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Movie Evaluation', new_movie_evaluation_path %>
