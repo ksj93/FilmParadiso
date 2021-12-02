@@ -7,7 +7,12 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
-  resources :tops
+  resources :tops do
+    collection do
+      get 'search'
+    end
+  end
+
   root to: 'tops#index'
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

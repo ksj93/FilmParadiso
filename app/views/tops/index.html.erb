@@ -7,73 +7,40 @@
 <h3>コンセプト</h3>
 <p>FilmParadisoは映画好きな人同士の情報・意見交流を指向するアプリケーションです。</p>
 
+
+<p><%= link_to "映画検索",search_tops_path %></p>
+
+<h2>最新投稿</h2>
 <p><%= link_to "映画評価作成",new_movie_evaluation_path %></p>
 <p><%= link_to "映画評価一覧",movie_evaluations_path %></p>
+<p>
+  <%= render "evaluation",movie_evaluations:@movie_evaluations %>
+</p>
 
-<h1>映画検索</h1>
-
-<div>
-  <%= form_tag(tops_path, method: :get) do %>
-    <%= search_field_tag :looking_for, nil, placeholder: 'Movie Title...' %>
-    <%= submit_tag '検索' %>
-  <% end %>
-</div>
-
-<%if params[:looking_for].present? %>
-    <% movieinfo = JSON.parse((Tmdb::Search.movie(params[:looking_for])).to_json) %>
-    <h2><%= params[:looking_for] %>の検索結果</h2>
-    =====================
-    <% i = 0 %>
-    <div class="card-wrapper">
-        <% while i < movieinfo['table']['results'].count %>
-            <div class="card">
-                <div class="card-upperinfo">
-                    <%if movieinfo['table']['results'][i]['table']['title'].present?%>
-                        <h2>タイトル</h2>
-                        <h3><%= link_to movieinfo['table']['results'][i]['table']['title'],tops_path(movieinfo['table']['results'][i]['table']['id']) %></h3>
-                    <%end%>
-
-                    <% if movieinfo['table']['results'][i]['table']['release_date'].present? %>
-                        <h3>リリース</h3>
-                        <p class="release-date"><%= movieinfo['table']['results'][i]['table']['release_date'] %></p>
-                    <%end%>
-                </div>
-
-
-                <% if movieinfo['table']['results'][i]['table']['poster_path'].present? %>
-                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieinfo['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
-                <%end%>
-            </div>
-            <% i += 1%>
-        <%end%>
-    </div>
-<%else%>
-    <%# 検索されていない時にトレンドコンテンツを表示する %>
     <h2>本日の世界のトレンド</h2>
     ====================
-    <% movieinfo = JSON.parse((Tmdb::Movie.popular).to_json) %>
+    <% moviepopular = JSON.parse((Tmdb::Movie.popular).to_json) %>
     <% i = 0 %>
     <div class="card-wrapper">
-        <% while i < movieinfo['table']['results'].count %>
+        <% while i < 5 %>
             <div class="card">
                 <div class="card-upperinfo">
-                    <%if movieinfo['table']['results'][i]['table']['title'].present?%>
+                    <%if moviepopular['table']['results'][i]['table']['title'].present?%>
                         <h2>タイトル</h2>
-                        <h3><%= link_to movieinfo['table']['results'][i]['table']['title'], tops_path(movieinfo['table']['results'][i]['table']['id'])%></h3>
+                        <h3><%= link_to moviepopular['table']['results'][i]['table']['title'], top_path(moviepopular['table']['results'][i]['table']['id'])%></h3>
                     <%end%>
 
-                    <% if movieinfo['table']['results'][i]['table']['release_date'].present? %>
+                    <% if moviepopular['table']['results'][i]['table']['release_date'].present? %>
                         <h3>リリース</h3>
-                        <p class="release-date"><%= movieinfo['table']['results'][i]['table']['release_date'] %></p>
+                        <p class="release-date"><%= moviepopular['table']['results'][i]['table']['release_date'] %></p>
                     <%end%>
                 </div>
 
-                <% if movieinfo['table']['results'][i]['table']['poster_path'].present? %>
-                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieinfo['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
+                <% if moviepopular['table']['results'][i]['table']['poster_path'].present? %>
+                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + moviepopular['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
                 <%end%>
             </div>
 
             <% i += 1%>
         <%end%>
     </div>
-<%end%>
