@@ -25,12 +25,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  def destroy
-    Relationship.where(followed_id:current_user.id).destroy_all
-    Relationship.where(follower_id:current_user.id).destroy_all
-    MovieEvaluation.where(user_id:current_user.id).destroy_all
-    super
-  end
+  # def destroy
+  #   Relationship.where(followed_id:current_user.id).destroy_all
+  #   Relationship.where(follower_id:current_user.id).destroy_all
+  #   MovieEvaluation.where(user_id:current_user.id).destroy_all
+  #   super
+  # end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'users/show'
   get 'users/index'
   resources :relationships, only: [:create, :destroy]
+  resources :likes, only: [:create, :destroy]
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :movie_evaluations do
     collection do

@@ -9,6 +9,7 @@ class MovieEvaluationsController < ApplicationController
 
   # GET /movie_evaluations/1 or /movie_evaluations/1.json
   def show
+    @like = current_user.likes.find_by(movie_evaluation_id:@movie_evaluation.id)
   end
 
   # GET /movie_evaluations/new
