@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  resources :users, only: [:index,:show]
+  # resources :users, only: [:index,:show]
+  get 'users/show'
+  get 'users/index'
   resources :relationships, only: [:create, :destroy]
   resources :likes, only: [:create, :destroy]
   devise_for :users, controllers: { registrations: 'users/registrations' }

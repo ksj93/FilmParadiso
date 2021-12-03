@@ -4,7 +4,11 @@ class UsersController < ApplicationController
     @users =User.all
   end
   def show
-    @user = User.find(params[:id])
+    if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = User.find(current_user.id)
+    end
   end
 
 end
