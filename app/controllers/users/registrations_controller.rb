@@ -26,6 +26,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   # def destroy
+  #   Relationship.where(followed_id:current_user.id).destroy_all
+  #   Relationship.where(follower_id:current_user.id).destroy_all
+  #   MovieEvaluation.where(user_id:current_user.id).destroy_all
   #   super
   # end
 

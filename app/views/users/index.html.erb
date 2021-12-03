@@ -1,0 +1,15 @@
+<h2>ユーザー一覧</h2>
+<% @users.each do |user| %>
+  <% if user.id != current_user.id %>
+    <p>
+      ユーザー名：
+      <%= link_to user.name , users_show_path %>
+      <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %>
+    </p>
+    <p>
+      Eメールアドレス：
+      <%= user.email %>
+    </p>
+      <%= render 'follow_form', user: user %>
+  <% end %>
+<% end %>

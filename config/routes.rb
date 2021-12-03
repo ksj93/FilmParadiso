@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'users/show'
+  get 'users/index'
+  resources :relationships, only: [:create, :destroy]
+  resources :likes, only: [:create, :destroy]
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resources :movie_evaluations do
     collection do
@@ -12,7 +15,9 @@ Rails.application.routes.draw do
       get 'search'
     end
   end
-
+  resources :conversations do
+    resources :messages
+  end
   root to: 'tops#index'
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

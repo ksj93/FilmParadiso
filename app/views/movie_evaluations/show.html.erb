@@ -68,5 +68,19 @@
    <%= @movie_evaluation.updated_at %>
  </p>
 
+ <% unless @movie_evaluation.user_id == current_user.id %>
+  <% if @like.present? %>
+    <%= link_to like_path(id: @like.id), method: :delete, class: 'btn btn-danger',notice:"like" do %>
+      <i class="fas fa-heart unlike-btn" ></i>
+      <%= @movie_evaluation.likes.count %>
+    <%end %>
+  <% else %>
+    <%= link_to likes_path(movie_evaluation_id: @movie_evaluation.id), method: :post, class: 'btn btn-primary',notice:"unlike" do %>
+      <i class="fas fa-heart like-btn"></i>
+      <%= @movie_evaluation.likes.count %>
+    <%end %>
+  <% end %>
+<% end %>
+
 <%= link_to 'Edit', edit_movie_evaluation_path(@movie_evaluation) %> |
 <%= link_to 'Back', movie_evaluations_path %>
