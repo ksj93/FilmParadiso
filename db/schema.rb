@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_151557) do
+ActiveRecord::Schema.define(version: 2021_12_03_043503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer "sender_id", null: false
+    t.integer "recipient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_conversations_on_recipient_id"
+    t.index ["sender_id", "recipient_id"], name: "index_conversations_on_sender_id_and_recipient_id", unique: true
+    t.index ["sender_id"], name: "index_conversations_on_sender_id"
+  end
 
   create_table "likes", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -22,6 +32,17 @@ ActiveRecord::Schema.define(version: 2021_12_02_151557) do
     t.datetime "updated_at", null: false
     t.index ["movie_evaluation_id"], name: "index_likes_on_movie_evaluation_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "conversation_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "read", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "movie_evaluations", force: :cascade do |t|
@@ -71,5 +92,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_151557) do
 
   add_foreign_key "likes", "movie_evaluations"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "movie_evaluations", "users"
 end
