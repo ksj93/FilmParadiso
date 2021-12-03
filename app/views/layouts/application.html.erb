@@ -14,8 +14,8 @@
       <%= link_to "トップへ", tops_path %>
       <%= link_to "映画評価一覧", movie_evaluations_path %>
       <%= link_to "映画評価投稿", new_movie_evaluation_path %>
-      <%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %>
-      <%= link_to "プロフィールへ", users_show_path %>
+      <%= link_to 'ユーザー一覧', users_path if user_signed_in? %>
+      <%= link_to "プロフィールへ", user_path(current_user) %>
       <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
     <% else %>
       <%= link_to "トップへ", tops_path %>
