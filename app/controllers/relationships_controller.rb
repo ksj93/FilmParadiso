@@ -1,5 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :authenticate_user!
+  before_action :guest_user?, only: [:create,:destroy]
 
   def create
     if user_signed_in?

@@ -1,8 +1,18 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  before_action :ensure_normal_user, only: %i[update destroy]
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+
+
+  def ensure_normal_user
+    if resource.email == "guest@filmparadiso.com"
+      redirect_to tops_path, alert: 'ゲストユーザーの更新・削除はできません。'
+    elsif resource.email == "guest_admin@filmparadiso.com"
+      redirect_to tops_path, alert: 'ゲストユーザーの更新・削除はできません。'
+    end
+  end
 
   # GET /resource/sign_up
   # def new
@@ -25,12 +35,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   Relationship.where(followed_id:current_user.id).destroy_all
-  #   Relationship.where(follower_id:current_user.id).destroy_all
-  #   MovieEvaluation.where(user_id:current_user.id).destroy_all
-  #   super
-  # end
+  def destroy
+    Conversation.find(sender_id:current_user.id).destroy_all
+    Conversation.find(recipient_id:current_user.id).destroy_all
+    super
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign

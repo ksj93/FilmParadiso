@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  before_action :guest_user?
   def index
     @conversations = Conversation.all
   end

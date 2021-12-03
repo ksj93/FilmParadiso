@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def guest_user?
+    if current_user.guest == true && current_user.admin == true
+
+    elsif current_user.guest == true
+      redirect_to tops_path
+    end
+  end
+
   protected
   def configure_permitted_parameters
     # サインアップ時にnameのストロングパラメータを追加
