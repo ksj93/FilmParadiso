@@ -1,0 +1,16 @@
+<% if params[:follow] %>
+  <h3>あなたがフォローしたユーザー</h3>
+<% elsif params[:followed] %>
+  <h3>あなたをフォローしたユーザー</h3>
+<% end %>
+<br>
+
+<% @users.each do |user| %>
+  <p>
+    <%= link_to user.name , users_show_path(id:user.id) %>
+    <%= user.email %>
+    <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %>
+    <%= render 'users/follow_form', user: user %>
+  </p>
+
+<% end %>

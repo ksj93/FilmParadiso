@@ -1,11 +1,26 @@
 class MovieEvaluationsController < ApplicationController
   before_action :set_movie_evaluation, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
+  before_action :authenticate_user!
   before_action :guest_user?, only: [:new,:edit,:destroy]
 
   # GET /movie_evaluations or /movie_evaluations.json
   def index
-    @movie_evaluations = MovieEvaluation.all
+    @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).limit(3)
+    @movie_evaluations_order_create = MovieEvaluation.order(created_at:"DESC").limit(3)
+    @movie_evaluations_order_likes = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}[0..2]
+  end
+
+  def index_full
+    if params[:popular]
+      @movie_evaluations = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
+    elsif params[:fresh]
+      @movie_evaluations = MovieEvaluation.order(created_at:"DESC")
+    elsif params[:id]
+      @user = User.find(params[:id])
+      @movie_evaluations = MovieEvaluation.where(user_id:params[:id])
+    else
+      @movie_evaluations = MovieEvaluation.where(user_id:current_user.id)
+    end
   end
 
   # GET /movie_evaluations/1 or /movie_evaluations/1.json

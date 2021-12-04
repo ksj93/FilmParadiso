@@ -2,6 +2,8 @@
   "name": "film_paradiso",
   "private": true,
   "dependencies": {
-    "jquery": "^3.6.0"
+    "bootstrap": "4.5.0",
+    "jquery": "3.5.1",
+    "popper.js": "1.16.0"
   }
 }

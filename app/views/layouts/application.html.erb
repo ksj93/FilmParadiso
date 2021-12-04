@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>FilmParadiso</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    
+    <!-- <meta name="viewport" content="width=device-width"> -->
+
+    <!-- stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <%= link_to "トップへ", tops_path %>
-      <%= link_to "映画評価一覧", movie_evaluations_path %>
-      <%= link_to "映画評価投稿", new_movie_evaluation_path %>
 
-      <%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %>
-      <%= link_to "プロフィールへ", users_show_path %>
+    <header class='header'>
 
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "トップへ", tops_path %>
-      <%= link_to "新規登録", new_user_registration_path %>
-      <%= link_to "ログイン", new_user_session_path %>
-    <% end %>
+      <ul>
+        <span class="app_tilte">FilmParadiso</span>
+        <% if user_signed_in? %>
+          <li><%= link_to "トップへ", tops_path %></li>
+          <li><%= link_to "映画評価一覧", movie_evaluations_path %></li>
+          <li><%= link_to "映画評価投稿", new_movie_evaluation_path %></li>
 
-    <% if notice %>
-      <p class="alert alert-notice"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-error"><%= alert %></p>
-    <% end %>
-    <%= yield %>
+          <li><%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %></li>
+          <li><%= link_to "プロフィールへ", users_show_path %></li>
+
+          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <li><%= link_to "トップへ", tops_path %></li>
+          <li><%= link_to "新規登録", new_user_registration_path %></li>
+          <li><%= link_to "ログイン", new_user_session_path %></li>
+        <% end %>
+      </ul>
+    </header>
+
+    <article class="article">
+      <% if notice %>
+        <p class="alert alert-notice"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-error"><%= alert %></p>
+      <% end %>
+      <%= yield %>
+    </article>
+
+    <footer class='footer'>
+      <p>🄫Film Paradiso | Create by KSJ | email : flyingsalmon21@gmail.com</p>
+    </footer>
+
   </body>
+
 </html>

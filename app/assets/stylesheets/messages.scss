@@ -1,3 +1,17 @@
 // Place all the styles related to the messages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.message-room{
+  width: 850px;
+  float :right;
+}
+.conversation-list{
+  width: 400px;
+  float :left;
+}
+.conversation-tag{
+  height: 100px;
+}
+.user-name{
+  font-size: 2rem;
+}
