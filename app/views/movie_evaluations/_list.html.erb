@@ -1,38 +1,18 @@
-<h1><%= @user.name %>様のプロフィール</h1>
-<p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-
-<% if current_user.guest != true && @user.guest != true &&@user.id != current_user.id %>
-  <%= render 'follow_form', user: @user %>
-  <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: :post %>
-<% elsif current_user.guest != true && @user.guest != true &&@user.id == current_user.id %>
-  <%= link_to 'フォロイング',relationships_path(follow:'true') %>　||
-  <%= link_to 'フォロワー',relationships_path(followed:'true') %>　||
-  <%= link_to '💛した評価',likes_path %>
-<% end %>
-<br>
-<br>
-<div class="links">
-  <% if @user.id == current_user.id %>
-    <% if @user.guest != true %>
-      <%= link_to "プロフィール編集", edit_user_registration_path %>
-      <%= link_to "退会", user_registration_path ,method: :delete, data: { confirm: '退会になると、今まで作成した情報全てが削除されますが、本当に退会してもよろしいでしょうか?' } %>
-    <% end %>
-    <% if @user.admin == true %>
-      <%= link_to "管理画面", rails_admin_path %>
-    <% end %>
-  <% end %>
-</div>
-<br>
-<% if @user.id == current_user.id %>
-  <h5>あなたが投稿した評価</h5>
-<% else %>
-  <h5><%=@user.name%>様がが投稿した評価</h5>
-<% end %>
-<%= link_to 'もっと見る', index_full_movie_evaluations_path(id:@user.id) %>
+<h1>Movie Evaluations</h1>
+<%= link_to '新しい投稿', new_movie_evaluation_path %>
+<h5>
+  <%if params[:popular]%>
+    本日の人気評価
+  <%elsif params[:fresh]%>
+    最近投稿された評価
+  <%elsif params[:id]%>
+    <%= user.name%>様の投稿した評価
+  <%else%>
+    あなたが投稿した評価
+  <%end%>
+</h5>
 <div class="card-pack-yours">
-<% @movie_evaluations.each do |movie_evaluation| %>
-  <%if movie_evaluation.user_id == @user.id %>
+<% movie_evaluations.each do |movie_evaluation| %>
     <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
     <div class="card mb-3" style="max-width: 540px;">
       <div class="row g-0">
@@ -78,15 +58,5 @@
         </div>
       </div>
       </div>
-    <% end %>
 <% end %>
 </div>
-
-<% if @user.id == current_user.id %>
-  <h5>あなたのお好みジャンル</h5>
-<% else %>
-  <h5><%=@user.name%>のお好みジャンル</h5>
-<% end %>
-修正リンク追加予定
-
-内容も追加予定

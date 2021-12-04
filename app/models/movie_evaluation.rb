@@ -5,5 +5,5 @@ class MovieEvaluation < ApplicationRecord
   belongs_to:user
   # ,  numericality: {greater_than_or_equal_to:1,less_than_or_equal_to: 5}
   has_many:likes, dependent: :destroy
-  has_many:users,through: :likes,source: :user
+  has_many:like_users,through: :likes,source: :user
 end

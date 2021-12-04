@@ -1,6 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :guest_user?, only: [:create,:destroy]
+  before_action :guest_user?
 
   def create
     if user_signed_in?
@@ -12,5 +12,15 @@ class RelationshipsController < ApplicationController
   def destroy
     @user = Relationship.find(params[:id]).followed
     current_user.unfollow!(@user)
+  end
+
+  def index
+    if params[:follow]
+      @users = current_user.following
+    elsif params[:followed]
+      @users = current_user.followers
+    else
+      redirect_to top_path
+    end
   end
 end

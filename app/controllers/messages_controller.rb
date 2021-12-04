@@ -1,10 +1,12 @@
 class MessagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :guest_user?
   before_action do
     @conversation = Conversation.find(params[:conversation_id])
   end
 
   def index
+    @conversations = Conversation.where(sender_id:current_user).or(Conversation.where(recipient_id:current_user))
     @messages = @conversation.messages
     if @messages.length > 10
       @over_ten = true

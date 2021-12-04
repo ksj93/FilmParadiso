@@ -13,7 +13,7 @@
       Eメールアドレス：
       <%= user.email %>
     </p>
-      <% if user.guest != true %>
+      <% if current_user.guest != true && user.guest != true %>
         <%= render 'follow_form', user: user %>
       <% end %>
   <% end %>

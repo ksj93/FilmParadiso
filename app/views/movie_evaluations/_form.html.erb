@@ -26,20 +26,23 @@
 
   </div>
 
+
+    <div class="field" id="star">
+      <%= form.label :評点 %>
+      <%if movie_evaluation.score.present? %>
+        <div>
+          <%=movie_evaluation.score%>点
+        </div>
+      <%end%>
+      <%= form.hidden_field :score, id: :review_star  %>
+    </div>
+
+
   <div class="field">
     <%= form.label :一言評価 %>
-    <%= form.text_area :short_criticism, placeholder: '50字以内で映画を評言', size: "50x2" %>
+    <p><%= form.text_area :short_criticism, placeholder: '50字以内で映画を評言', size: "50x2" %></p>
   </div>
 
-  <div class="field" id="star">
-    <%= form.label :評点 %>
-    <%if movie_evaluation.score.present? %>
-      <div>
-        <%=movie_evaluation.score%>点
-      </div>
-    <%end%>
-    <%= form.hidden_field :score, id: :review_star  %>
-  </div>
 
 
 

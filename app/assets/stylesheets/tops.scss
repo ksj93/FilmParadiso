@@ -1,3 +1,18 @@
 // Place all the styles related to the tops controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.information_app{
+  text-align: center;
+}
+.top-image{
+  width: 100px;
+}
+.card {
+  display: inline-block;
+  float: left;
+}
+.card-pack{
+  display: flex;
+  justify-content: center;
+}

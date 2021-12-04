@@ -17,6 +17,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def message_able?
+    if User.find(params[:recipient_id]).guest == true
+      redirect_to tops_path
+    else
+    end
+  end
+
   protected
   def configure_permitted_parameters
     # サインアップ時にnameのストロングパラメータを追加

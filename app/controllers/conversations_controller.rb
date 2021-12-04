@@ -1,5 +1,7 @@
 class ConversationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :guest_user?
+  before_action :message_able?,only:[:create]
   def index
     @conversations = Conversation.all
   end
