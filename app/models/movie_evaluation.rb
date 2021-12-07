@@ -6,4 +6,5 @@ class MovieEvaluation < ApplicationRecord
   # ,  numericality: {greater_than_or_equal_to:1,less_than_or_equal_to: 5}
   has_many:likes, dependent: :destroy
   has_many:like_users,through: :likes,source: :user
+  validates_uniqueness_of :movie_id, scope: :user_id
 end

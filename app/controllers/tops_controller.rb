@@ -1,6 +1,6 @@
 class TopsController < ApplicationController
   def index
-    @movie_evaluations = MovieEvaluation.all.limit(3)
+    @movie_evaluations = MovieEvaluation.order(created_at:"DESC").limit(3)
   end
 
   def search

@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
   end
 
   def index
+
     @conversations = Conversation.where(sender_id:current_user).or(Conversation.where(recipient_id:current_user))
     @messages = @conversation.messages
     if @messages.length > 10
