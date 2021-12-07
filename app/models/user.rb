@@ -46,4 +46,5 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :like_evaluations, through: :likes , source: :movie_evaluation, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :favorite_genres, dependent: :destroy
 end

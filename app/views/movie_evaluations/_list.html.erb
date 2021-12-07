@@ -1,10 +1,20 @@
 <h1>Movie Evaluations</h1>
-<%= link_to '新しい投稿', new_movie_evaluation_path %>
+
+<% movieshow = JSON.parse((Tmdb::Movie.detail(params[:movie_id])).to_json) %>
+
+<%if params[:movie_id]%>
+  <%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:movie_id]) %>
+<%else%>
+  <%= link_to '新しい投稿', new_movie_evaluation_path %>
+<%end%>
+
 <h5>
   <%if params[:popular]%>
     本日の人気評価
   <%elsif params[:fresh]%>
     最近投稿された評価
+  <%elsif params[:movie_id]%>
+    映画「<%= movieshow['table']['title'] %>」に関する評価
   <%elsif params[:id]%>
     <%= user.name%>様の投稿した評価
   <%else%>

@@ -5,7 +5,7 @@
     <title>FilmParadiso</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    
+
     <!-- <meta name="viewport" content="width=device-width"> -->
 
     <!-- stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -21,20 +21,24 @@
 
       <ul>
         <span class="app_tilte">FilmParadiso</span>
-        <% if user_signed_in? %>
-          <li><%= link_to "トップへ", tops_path %></li>
-          <li><%= link_to "映画評価一覧", movie_evaluations_path %></li>
-          <li><%= link_to "映画評価投稿", new_movie_evaluation_path %></li>
+        <div class="link-list">
+          <% if user_signed_in? %>
+            <li><%= link_to "トップへ", tops_path %></li>
+            <li><%= link_to "映画おすすめ", movie_recommends_path %></li>
+            <li><%= link_to "お好みジャンル", new_favorite_genre_path %></li>
+            <li><%= link_to "映画評価一覧", movie_evaluations_path %></li>
+            <li><%= link_to "映画評価投稿", new_movie_evaluation_path %></li>
 
-          <li><%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %></li>
-          <li><%= link_to "プロフィールへ", users_show_path %></li>
+            <li><%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %></li>
+            <li><%= link_to "プロフィールへ", users_show_path %></li>
 
-          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-        <% else %>
-          <li><%= link_to "トップへ", tops_path %></li>
-          <li><%= link_to "新規登録", new_user_registration_path %></li>
-          <li><%= link_to "ログイン", new_user_session_path %></li>
-        <% end %>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "トップへ", tops_path %></li>
+            <li><%= link_to "新規登録", new_user_registration_path %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+          <% end %>
+        </div>
       </ul>
     </header>
 

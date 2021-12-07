@@ -1,0 +1,42 @@
+<h1>お好みジャンル</h1>
+
+<% if params[:close_text]  %>
+  <%= link_to "もう一回、取り扱い方法を見る", new_favorite_genre_path(information_text:'true')%>
+<% elsif params[:information_text] || current_user.favorite_genres.count == 0%>
+  <small><%= link_to "取り扱い方法を閉じる", new_favorite_genre_path(close_text:'true')%></small>
+<% else %>
+  <small><%= link_to "もう一回、取り扱い方法を見る", new_favorite_genre_path(information_text:'true')%></small>
+<% end %>
+
+<% if params[:close_text]  %>
+
+<% elsif params[:information_text] || current_user.favorite_genres.count == 0%>
+  <div class="text">
+    <h4>ここではあなたのお好みのジャンルを選択します。</h4>
+    <h4>選択したジャンルと同じジャンルをおすすめします。。</h4>
+    <h5>使い方</h5>
+    <p>まず、お好みのジャンル「全体ジャンルのリスト」で選択し、OKボタンをクリックしてください</p>
+    <p>選択したジャンルを除去したい場合は「あなたの好み」で選択されているジャンルを選択し、OKボタンをクリックしてください</p>
+  </div>
+<% end %>
+
+<% moviegenre = JSON.parse((Tmdb::Genre.movie_list).to_json) %>
+
+<h3>あなたの好み</h3>
+<small>※最大５個まで</small>
+<br>
+
+<div class="genre-list">
+  <% current_user.favorite_genres.each do |favorite| %>
+      <%= link_to favorite.genre_name,favorite,method: :delete,data: { confirm: '選択したジャンルを本当に削除しますか?' },class:"genre"%>/
+  <% end %>
+</div>
+<br>
+
+<h3>全体ジャンルのリスト</h3>
+
+<div class="genre-list">
+  <% moviegenre.each do |genre|%>
+    <%= link_to genre['table']['name'], new_favorite_genre_path(update_favorite: "true",genre_name:genre['table']['name'],genre_id:genre['table']['id']),data: { confirm: '選択したジャンルがあなたの好みですか?' },class:"genre"%>/
+  <% end %>
+</div>

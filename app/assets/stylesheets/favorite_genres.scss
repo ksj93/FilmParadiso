@@ -1,0 +1,16 @@
+// Place all the styles related to the favorite_genres controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.genre-list{
+  height: 200px;
+  background-color: grey;
+  padding: 20px;
+}
+.genre{
+  color: orange;
+  font-weight: bold;
+  margin: 50px 10px;
+  padding: 10px 10px;
+  background-color: white;
+  border-radius: 24px;
+}

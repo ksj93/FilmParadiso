@@ -15,6 +15,8 @@ class MovieEvaluationsController < ApplicationController
       @movie_evaluations = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
     elsif params[:fresh]
       @movie_evaluations = MovieEvaluation.order(created_at:"DESC")
+    elsif params[:movie_id]
+      @movie_evaluations = MovieEvaluation.where(movie_id:params[:movie_id])
     elsif params[:id]
       @user = User.find(params[:id])
       @movie_evaluations = MovieEvaluation.where(user_id:params[:id])
