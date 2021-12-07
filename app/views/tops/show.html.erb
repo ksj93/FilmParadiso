@@ -39,7 +39,7 @@
 </div>
 <br>
 <h3>映画「<%= movieshow['table']['title'] %>」の評価</h3>
-<%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:id]) %>
+<%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:id],select_movie:true) %>
 <br>
 <%= link_to 'もっと見る', index_full_movie_evaluations_path(movie_id:params[:id]) %>
 

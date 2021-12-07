@@ -5,7 +5,7 @@ class MovieEvaluationsController < ApplicationController
 
   # GET /movie_evaluations or /movie_evaluations.json
   def index
-    @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).limit(3)
+    @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC").limit(3)
     @movie_evaluations_order_create = MovieEvaluation.order(created_at:"DESC").limit(3)
     @movie_evaluations_order_likes = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}[0..2]
   end

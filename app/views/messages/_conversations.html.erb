@@ -5,7 +5,7 @@
       <%= link_to conversation.target_user(current_user).name, conversation_messages_path(conversation),class:'user-name'%>
       <p>
         <% conversation.messages.each do |message|%>
-          <%if message == conversation.messages.last%>
+          <% if message == conversation.messages.last %>
             <%= message.body %>/<%= message.user.name %>
             <br>
             <small><%= message.message_time %></small>

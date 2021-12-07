@@ -1,9 +1,9 @@
 <h1>Movie Evaluations</h1>
 
-<% movieshow = JSON.parse((Tmdb::Movie.detail(params[:movie_id])).to_json) %>
 
 <%if params[:movie_id]%>
-  <%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:movie_id]) %>
+  <% movieshow = JSON.parse((Tmdb::Movie.detail(params[:movie_id])).to_json) %>
+  <%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:movie_id],select_movie:true) %>
 <%else%>
   <%= link_to '新しい投稿', new_movie_evaluation_path %>
 <%end%>
