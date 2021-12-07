@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_03_043503) do
+ActiveRecord::Schema.define(version: 2021_12_05_155112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 2021_12_03_043503) do
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id"
     t.index ["sender_id", "recipient_id"], name: "index_conversations_on_sender_id_and_recipient_id", unique: true
     t.index ["sender_id"], name: "index_conversations_on_sender_id"
+  end
+
+  create_table "favorite_genres", force: :cascade do |t|
+    t.string "genre_name", null: false
+    t.integer "genre_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["genre_name", "user_id"], name: "index_favorite_genres_on_genre_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_favorite_genres_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -53,6 +63,15 @@ ActiveRecord::Schema.define(version: 2021_12_03_043503) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_movie_evaluations_on_user_id"
+  end
+
+  create_table "movie_recommends", force: :cascade do |t|
+    t.string "genre_name", null: false
+    t.integer "genre_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_movie_recommends_on_user_id"
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -90,9 +109,11 @@ ActiveRecord::Schema.define(version: 2021_12_03_043503) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "favorite_genres", "users"
   add_foreign_key "likes", "movie_evaluations"
   add_foreign_key "likes", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "movie_evaluations", "users"
+  add_foreign_key "movie_recommends", "users"
 end

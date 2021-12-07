@@ -3,7 +3,7 @@
 
 <div>
   <%= form_tag(search_tops_path, method: :get) do %>
-    <%= search_field_tag :looking_for, nil, placeholder: 'Movie Title...' %>
+    <%= search_field_tag :looking_for, nil, placeholder: "映画のタイトルを入力して検索",size:50 %>
     <%= submit_tag '検索' %>
   <% end %>
 </div>

@@ -14,7 +14,9 @@
  *= require_tree .
  *= require_self
  */
-
+.link-list{
+  float: right;
+}
 .app_title{
   display: block;
   padding: 0 0;
@@ -45,7 +47,7 @@ header ul a {
   color: white;
 }
 header li {
-  float: right;
+  float: left;
   width: auto;
 }
 header ul:after {

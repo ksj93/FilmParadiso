@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :favorite_genres,only:[:new,:destroy]
+  resources :movie_recommends,only:[:index]
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   # resources :users, only: [:index,:show]
   get 'users/show'
