@@ -1,7 +1,8 @@
 class MovieEvaluationsController < ApplicationController
   before_action :set_movie_evaluation, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-  before_action :guest_user?, only: [:new,:edit,:destroy]
+  before_action :current_user?,only:[:edit,:destroy]
+  # before_action :guest_user?, only: [:new,:edit,:destroy]
 
   # GET /movie_evaluations or /movie_evaluations.json
   def index
@@ -89,5 +90,14 @@ class MovieEvaluationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def movie_evaluation_params
       params.require(:movie_evaluation).permit(:short_criticism, :score, :movie_id)
+    end
+
+    def current_user?
+      @movie_evaluation = MovieEvaluation.find(params[:id])
+      if current_user.admin == true || @movie_evaluation.user_id == current_user.id
+
+      elsif @movie_evaluation.user_id != current_user.id
+        redirect_to movie_evaluation_path(@movie_evaluation)
+      end
     end
 end

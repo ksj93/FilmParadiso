@@ -5,14 +5,14 @@ class FavoriteGenresController < ApplicationController
     @Favorite_genre = FavoriteGenre.new
     if params[:update_favorite]
       @Favorite_genre = FavoriteGenre.new(genre_name:params[:genre_name],genre_id:params[:genre_id],user_id:current_user.id)
-      if current_user.favorite_genres.count <= 4
+      if current_user.favorite_genres.count <= 2
         if @Favorite_genre.save
           redirect_to new_favorite_genre_path
         else
           render :new
         end
       else
-        flash.now[:alert] = '選択出来るジャンルは最大５個までです！！'
+        flash.now[:alert] = '選択出来るジャンルは最大3個までです！！'
         render :new
       end
     end

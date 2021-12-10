@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
-  before_action :guest_user?
+  # before_action :guest_user?
   def create
     like = current_user.likes.create(movie_evaluation_id:params[:movie_evaluation_id])
     redirect_to movie_evaluation_path(params[:movie_evaluation_id])

@@ -34,7 +34,7 @@
           <p class="card-text"><small class="crud-menu">
             <%= link_to 'Show', movie_evaluation %>
             <% if current_user != nil %>
-              <% if movie_evaluation.user_id == current_user.id %>
+              <% if movie_evaluation.user_id == current_user.id or current_user.admin == true %>
                  |
                 <%= link_to 'Edit', edit_movie_evaluation_path(movie_evaluation) %> |
                 <%= link_to 'Destroy', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>

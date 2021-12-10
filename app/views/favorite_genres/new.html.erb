@@ -1,4 +1,5 @@
-<h1>お好みジャンル</h1>
+
+<h1 class="title_genre">お好みジャンル</h1>
 
 <% if params[:close_text]  %>
   <%= link_to "もう一回、取り扱い方法を見る", new_favorite_genre_path(information_text:'true')%>
@@ -23,12 +24,12 @@
 <% moviegenre = JSON.parse((Tmdb::Genre.movie_list).to_json) %>
 
 <h3>あなたの好み</h3>
-<small>※最大５個まで</small>
+<small>※最大3個まで</small>
 <br>
 
 <div class="genre-list">
   <% current_user.favorite_genres.each do |favorite| %>
-      <%= link_to favorite.genre_name,favorite,method: :delete,data: { confirm: '選択したジャンルを本当に削除しますか?' },class:"genre"%>/
+      <%= link_to favorite.genre_name,favorite,method: :delete,data: { confirm: '選択したジャンルを本当に削除しますか?' },class:"genre"%>
   <% end %>
 </div>
 <br>
@@ -37,6 +38,6 @@
 
 <div class="genre-list">
   <% moviegenre.each do |genre|%>
-    <%= link_to genre['table']['name'], new_favorite_genre_path(update_favorite: "true",genre_name:genre['table']['name'],genre_id:genre['table']['id']),data: { confirm: '選択したジャンルがあなたの好みですか?' },class:"genre"%>/
+    <p class ="genres"><%= link_to genre['table']['name'], new_favorite_genre_path(update_favorite: "true",genre_name:genre['table']['name'],genre_id:genre['table']['id']),data: { confirm: '選択したジャンルがあなたの好みですか?' },class:"genre"%></p>
   <% end %>
 </div>
