@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+
 ENV['RAILS_ENV'] ||= 'test'
 
 require File.expand_path('../config/environment', __dir__)
@@ -74,4 +75,5 @@ RSpec.configure do |config|
     # 変更 sessionメソッドをRSpec.configuration.sessionで上書き
     allow_any_instance_of(ActionDispatch::Request).to receive(:session).and_return(RSpec.configuration.session)
   end
+
 end

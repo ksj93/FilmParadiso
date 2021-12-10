@@ -29,58 +29,63 @@
       <%= @movie_evaluation.movie_id %>
     </p>
   </div>
+<div class="show_form">
+  <p>
+    <strong>作成者:</strong>
+    <%= @movie_evaluation.user.name %>
+  </p>
+  <p>
 
-<p>
-  <strong>作成者:</strong>
-  <%= @movie_evaluation.user.name %>
-</p>
-<p>
+    <strong>Short criticism:</strong>
+    <%= @movie_evaluation.short_criticism %>
+  </p>
 
-  <strong>Short criticism:</strong>
-  <%= @movie_evaluation.short_criticism %>
-</p>
-
-<p>
-  <strong>Score:</strong>
-  <%= @movie_evaluation.score %>
-</p>
-<div id="star-rate-<%= @movie_evaluation.id %>"></div>
- <script>
- $('#star-rate-<%= @movie_evaluation.id %>').raty({
-   size: 36,
-   starOff:  '<%= asset_path('star-off.png') %>',
-   starOn : '<%= asset_path('star-on.png') %>',
-   starHalf: '<%= asset_path('star-half.png') %>',
-   half: true,
-   readOnly: true,
-   score: <%= @movie_evaluation.score %>,
- });
- </script>
+  <p>
+    <strong>Score:</strong>
+    <%= @movie_evaluation.score %>
+  </p>
+  <div id="star-rate-<%= @movie_evaluation.id %>"></div>
+   <script>
+   $('#star-rate-<%= @movie_evaluation.id %>').raty({
+     size: 36,
+     starOff:  '<%= asset_path('star-off.png') %>',
+     starOn : '<%= asset_path('star-on.png') %>',
+     starHalf: '<%= asset_path('star-half.png') %>',
+     half: true,
+     readOnly: true,
+     score: <%= @movie_evaluation.score %>,
+   });
+   </script>
 
 
- <p>
-   <strong>作成日:</strong>
-   <%= @movie_evaluation.created_at %>
- </p>
+   <p>
+     <strong>作成日:</strong>
+     <%= @movie_evaluation.created_at %>
+   </p>
 
- <p>
-   <strong>修正日:</strong>
-   <%= @movie_evaluation.updated_at %>
- </p>
+   <p>
+     <strong>修正日:</strong>
+     <%= @movie_evaluation.updated_at %>
+   </p>
 
-<% unless current_user ==nil %>
-  <% unless @movie_evaluation.user_id == current_user.id %>
-    <% if @like.present? %>
-      <%= link_to like_path(id: @like.id), method: :delete, class: 'btn btn-danger',notice:"like" do %>
-        <i class="fas fa-heart unlike-btn" ></i>
-      <%end %>
-    <% else %>
-      <%= link_to likes_path(movie_evaluation_id: @movie_evaluation.id), method: :post, class: 'btn btn-primary',notice:"unlike" do %>
-        <i class="fas fa-heart like-btn"></i>
-      <%end %>
+  <% unless current_user ==nil %>
+    <% unless @movie_evaluation.user_id == current_user.id %>
+      <% if @like.present? %>
+        <%= link_to like_path(id: @like.id), method: :delete, class: 'btn btn-danger',notice:"like" do %>
+          <i class="fas fa-heart unlike-btn" ></i>
+        <%end %>
+      <% else %>
+        <%= link_to likes_path(movie_evaluation_id: @movie_evaluation.id), method: :post, class: 'btn btn-primary',notice:"unlike" do %>
+          <i class="fas fa-heart like-btn"></i>
+        <%end %>
+      <% end %>
     <% end %>
+    <%= @movie_evaluation.likes.count %>
   <% end %>
-  <%= @movie_evaluation.likes.count %>
-<% end %>
-<%= link_to 'Edit', edit_movie_evaluation_path(@movie_evaluation) %> |
-<%= link_to 'Back', movie_evaluations_path %>
+  <% if @movie_evaluation.user_id == current_user.id || current_user.admin  == true  %>
+     |
+    <%= link_to 'Edit', edit_movie_evaluation_path(@movie_evaluation) %> |
+    <%= link_to 'Destroy', @movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %> |
+  <% end %>
+  <%= link_to 'Back', movie_evaluations_path %>
+</div>

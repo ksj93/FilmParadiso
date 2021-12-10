@@ -24,6 +24,7 @@
         <div class="link-list">
           <% if user_signed_in? %>
             <li><%= link_to "トップへ", tops_path %></li>
+            <li><%= link_to "映画検索", search_tops_path %></li>
             <li><%= link_to "映画おすすめ", movie_recommends_path %></li>
             <li><%= link_to "お好みジャンル", new_favorite_genre_path %></li>
             <li><%= link_to "映画評価一覧", movie_evaluations_path %></li>
@@ -31,11 +32,14 @@
 
             <li><%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %></li>
             <li><%= link_to "プロフィールへ", users_show_path %></li>
-
+            <% if current_user.admin == true %>
+              <li><%= link_to "管理者画面", rails_admin_path,data: { confirm: '管理ページに移動しますか?' } %></li>
+            <% end %>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to "トップへ", tops_path %></li>
             <li><%= link_to "新規登録", new_user_registration_path %></li>
+
             <li><%= link_to "ログイン", new_user_session_path %></li>
           <% end %>
         </div>

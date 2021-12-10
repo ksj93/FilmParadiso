@@ -1,24 +1,18 @@
 <h1><%= @user.name %>様のプロフィール</h1>
 <p>名前 : <%= @user.name %></p>
 <p>メールアドレス : <%= @user.email %></p>
-
-<% if current_user.guest != true && @user.guest != true &&@user.id != current_user.id %>
   <%= render 'follow_form', user: @user %>
   <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: :post %>
-<% elsif current_user.guest != true && @user.guest != true &&@user.id == current_user.id %>
   <%= link_to 'フォロイング',relationships_path(follow:'true') %>　||
   <%= link_to 'フォロワー',relationships_path(followed:'true') %>　||
   <%= link_to '💛した評価',likes_path %>
-<% end %>
 <br>
 <br>
 <div class="links">
-  <% if @user.id == current_user.id %>
-    <% if @user.guest != true %>
+  <% if @user.id == current_user.id%>
       <%= link_to "プロフィール編集", edit_user_registration_path %>
       <%= link_to "退会", user_registration_path ,method: :delete, data: { confirm: '退会になると、今まで作成した情報全てが削除されますが、本当に退会してもよろしいでしょうか?' } %>
-    <% end %>
-    <% if @user.admin == true %>
+    <% if @user.admin == true && @user.id == current_user %>
       <%= link_to "管理画面", rails_admin_path %>
     <% end %>
   <% end %>
@@ -87,6 +81,10 @@
 <% else %>
   <h5><%=@user.name%>のお好みジャンル</h5>
 <% end %>
-修正リンク追加予定
-
-内容も追加予定
+<%= link_to "お好みジャンル編集", new_favorite_genre_path %>
+<div class="genre-list">
+  <% current_user.favorite_genres.each do |favorite| %>
+      <p class="genre"><%= favorite.genre_name%></p>
+  <% end %>
+</div>
+<br>

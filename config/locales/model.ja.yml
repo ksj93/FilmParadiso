@@ -1,0 +1,40 @@
+ja:
+  activerecord:
+    models:
+      conversation: 会話ルーム
+      user: ユーザー
+      favorite_genre: お好みジャンル
+      like: いいね
+      message: メッセージ
+      movie_evaluation: 映画評価
+      relationship: フォロー
+    attributes:
+      conversation:
+        sender_id: 送信者
+        recipient_id: 受信者
+      user:
+        email: Eメール
+        encrypted_password: パスワード(暗号化)
+        admin: 管理者権限
+        guest: ゲスト有無
+        name: ユーザー名
+      favorite_genre:
+        genre_name: ジャンル名
+        genre_id: ジャンルid
+        user_id: ユーザーid
+      like:
+        user_id: ユーザーid
+        movie_evaluation_id: 映画評価id
+      message:
+        body: 内容
+        conversation_id: 会話ルームid
+        user_id: 送信者id
+        read: 既読有無
+      movie_evaluation:
+        short_criticism: 批評
+        score: 評点
+        movie_id: 映画id
+        user_id: 作成者id
+      relationship:
+        follower_id: フォロワーid
+        followed_id: フォロイングid

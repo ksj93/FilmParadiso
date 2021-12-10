@@ -1,4 +1,4 @@
-<h1>Movie Evaluations</h1>
+<h1>映画評価の一覧</h1>
 <%= link_to '新しい投稿', new_movie_evaluation_path %>
 
 <h5>あなたが投稿した評価</h5>
@@ -40,7 +40,7 @@
             <p class="card-text"><small class="crud-menu">
               <%= link_to 'Show', movie_evaluation %>
               <% if current_user != nil %>
-                <% if movie_evaluation.user_id == current_user.id %>
+                <% if movie_evaluation.user_id == current_user.id || current_user.admin  == true %>
                    |
                   <%= link_to 'Edit', edit_movie_evaluation_path(movie_evaluation) %> |
                   <%= link_to 'Destroy', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -93,7 +93,7 @@
             <p class="card-text"><small class="text-muted"><%= movie_evaluation.created_at %></small></p>
             <p class="card-text"><small class="crud-menu">
               <%= link_to 'Show', movie_evaluation %>
-              <% if movie_evaluation.user_id == current_user.id %>
+              <% if movie_evaluation.user_id == current_user.id || current_user.admin == true  %>
                  |
                 <%= link_to 'Edit', edit_movie_evaluation_path(movie_evaluation) %> |
                 <%= link_to 'Destroy', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -143,7 +143,7 @@
             <p class="card-text"><small class="text-muted"><%= movie_evaluation.created_at %></small></p>
             <p class="card-text"><small class="crud-menu">
               <%= link_to 'Show', movie_evaluation %>
-              <% if movie_evaluation.user_id == current_user.id %>
+              <% if movie_evaluation.user_id == current_user.id || current_user.admin  == true %>
                  |
                 <%= link_to 'Edit', edit_movie_evaluation_path(movie_evaluation) %> |
                 <%= link_to 'Destroy', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>

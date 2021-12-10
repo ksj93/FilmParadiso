@@ -10,110 +10,113 @@
   <% end %>
 </div>
 
-<% if @genre_id_array.count == 3 %>
-  <% moviegenre_recommend = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[1] & @genre_id_array[2]})).to_json) %>
-  <% moviegenre_recommend_sub1 = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[1]})).to_json) %>
-  <% moviegenre_recommend_sub2 = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[2]})).to_json) %>
-  <% moviegenre_recommend_sub3 = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[1] & @genre_id_array[2]})).to_json) %>
-  <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}と#{@genre_name_array[2]}"%> ジャンルのおすすめ映画</h3>
-<% elsif @genre_id_array.count == 2 %>
-  <% moviegenre_recommend = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[1]})).to_json) %>
-  <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}"%> ジャンルのおすすめ映画</h3>
-<% elsif @genre_id_array.count == 1 %>
-  <% moviegenre_recommend = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0]})).to_json) %>
-  <h3><%="#{@genre_name_array[0]}"%> ジャンルのおすすめ映画</h3>
-<% else %>
-  <% moviegenre_recommend = JSON.parse((Tmdb::Movie.popular).to_json) %>
-  <h3>本日の世界のトレンド</h3>
-<% end %>
-
-<div class="movie_recommend_list">
-  <% moviegenre_recommend['table']['results'].each do |recommended| %>
-    <div class="card">
-      <% if recommended['table']['poster_path'].present? %>
-          <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "card-img" %></p>
-      <%end%>
-      <div class="card-upperinfo">
-          <%if recommended['table']['title'].present?%>
-              <h5>タイトル</h5>
-              <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
-          <%end%>
-
-          <% if recommended['table']['release_date'].present? %>
-              <h5>リリース</h5>
-              <p class="release-date"><%= recommended['table']['release_date'] %></p>
-          <%end%>
-      </div>
-    </div>
+<div class="recommended_all_list">
+  <% if @genre_id_array.count == 3 %>
+    <% moviegenre_recommend = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[1] & @genre_id_array[2]})).to_json) %>
+    <% moviegenre_recommend_sub1 = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[1]})).to_json) %>
+    <% moviegenre_recommend_sub2 = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[2]})).to_json) %>
+    <% moviegenre_recommend_sub3 = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[1] & @genre_id_array[2]})).to_json) %>
+    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}と#{@genre_name_array[2]}"%> ジャンルのおすすめ映画</h3>
+  <% elsif @genre_id_array.count == 2 %>
+    <% moviegenre_recommend = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[1]})).to_json) %>
+    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}"%> ジャンルのおすすめ映画</h3>
+  <% elsif @genre_id_array.count == 1 %>
+    <% moviegenre_recommend = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0]})).to_json) %>
+    <h3><%="#{@genre_name_array[0]}"%> ジャンルのおすすめ映画</h3>
+  <% else %>
+    <% moviegenre_recommend = JSON.parse((Tmdb::Movie.popular).to_json) %>
+    <h3>本日の世界のトレンド</h3>
   <% end %>
+
+  <div class="recommend-wrapper">
+    <% moviegenre_recommend['table']['results'].each do |recommended| %>
+      <div class="recommend">
+        <% if recommended['table']['poster_path'].present? %>
+            <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
+        <%end%>
+        <div class="recommend-upperinfo">
+            <%if recommended['table']['title'].present?%>
+                <h5>タイトル</h5>
+                <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+            <%end%>
+
+            <% if recommended['table']['release_date'].present? %>
+                <h5>リリース</h5>
+                <p class="release-date"><%= recommended['table']['release_date'] %></p>
+            <%end%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+
+  <% if @genre_id_array.count == 3 %>
+    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}"%>ジャンルのおすすめ映画</h3>
+    <div class="recommend-wrapper">
+      <% moviegenre_recommend_sub1['table']['results'].each do |recommended| %>
+        <div class="recommend">
+          <% if recommended['table']['poster_path'].present? %>
+              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
+          <%end%>
+          <div class="recommend-upperinfo">
+              <%if recommended['table']['title'].present?%>
+                  <h5>タイトル</h5>
+                  <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+              <%end%>
+
+              <% if recommended['table']['release_date'].present? %>
+                  <h5>リリース</h5>
+                  <p class="release-date"><%= recommended['table']['release_date'] %></p>
+              <%end%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[2]}"%>ジャンルのおすすめ映画</h3>
+    <div class="recommend-wrapper">
+      <% moviegenre_recommend_sub2['table']['results'].each do |recommended| %>
+        <div class="recommend">
+          <% if recommended['table']['poster_path'].present? %>
+              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
+          <%end%>
+          <div class="recommend-upperinfo">
+              <%if recommended['table']['title'].present?%>
+                  <h5>タイトル</h5>
+                  <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+              <%end%>
+
+              <% if recommended['table']['release_date'].present? %>
+                  <h5>リリース</h5>
+                  <p class="release-date"><%= recommended['table']['release_date'] %></p>
+              <%end%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <h3><%="#{@genre_name_array[1]}と#{@genre_name_array[2]}"%>ジャンルのおすすめ映画</h3>
+    <div class="recommend-wrapper">
+      <% moviegenre_recommend_sub3['table']['results'].each do |recommended| %>
+        <div class="recommend">
+          <% if recommended['table']['poster_path'].present? %>
+              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
+          <%end%>
+          <div class="recommend-upperinfo">
+              <%if recommended['table']['title'].present?%>
+                  <h5>タイトル</h5>
+                  <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+              <%end%>
+
+              <% if recommended['table']['release_date'].present? %>
+                  <h5>リリース</h5>
+                  <p class="release-date"><%= recommended['table']['release_date'] %></p>
+              <%end%>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <%end%>
 </div>
 
-
-<% if @genre_id_array.count == 3 %>
-  <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}"%>ジャンルのおすすめ映画</h3>
-  <div class="movie_recommend_list">
-    <% moviegenre_recommend_sub1['table']['results'].each do |recommended| %>
-      <div class="card">
-        <% if recommended['table']['poster_path'].present? %>
-            <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "card-img" %></p>
-        <%end%>
-        <div class="card-upperinfo">
-            <%if recommended['table']['title'].present?%>
-                <h5>タイトル</h5>
-                <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
-            <%end%>
-
-            <% if recommended['table']['release_date'].present? %>
-                <h5>リリース</h5>
-                <p class="release-date"><%= recommended['table']['release_date'] %></p>
-            <%end%>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[2]}"%>ジャンルのおすすめ映画</h3>
-  <div class="movie_recommend_list">
-    <% moviegenre_recommend_sub2['table']['results'].each do |recommended| %>
-      <div class="card">
-        <% if recommended['table']['poster_path'].present? %>
-            <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "card-img" %></p>
-        <%end%>
-        <div class="card-upperinfo">
-            <%if recommended['table']['title'].present?%>
-                <h5>タイトル</h5>
-                <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
-            <%end%>
-
-            <% if recommended['table']['release_date'].present? %>
-                <h5>リリース</h5>
-                <p class="release-date"><%= recommended['table']['release_date'] %></p>
-            <%end%>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-  <h3><%="#{@genre_name_array[1]}と#{@genre_name_array[2]}"%>ジャンルのおすすめ映画</h3>
-  <div class="movie_recommend_list">
-    <% moviegenre_recommend_sub3['table']['results'].each do |recommended| %>
-      <div class="card">
-        <% if recommended['table']['poster_path'].present? %>
-            <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "card-img" %></p>
-        <%end%>
-        <div class="card-upperinfo">
-            <%if recommended['table']['title'].present?%>
-                <h5>タイトル</h5>
-                <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
-            <%end%>
-
-            <% if recommended['table']['release_date'].present? %>
-                <h5>リリース</h5>
-                <p class="release-date"><%= recommended['table']['release_date'] %></p>
-            <%end%>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
-<%end%>
+<p><%= link_to 'Back', tops_path %></p>

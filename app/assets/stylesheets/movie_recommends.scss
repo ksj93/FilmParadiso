@@ -3,5 +3,33 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .movie_recommend_list{
-  text-align: center;
+  width: 100%;
+  float: left;
+}
+
+.recommend {
+    // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    width: 20%;
+    margin-bottom: 10;
+    padding: 20px;
+    box-sizing: border-box;
+    float: left;
+    text-align: center;
+}
+.recommend-wrapper {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.recommend-img {
+    width: 50%;
+    border-radius: 16px;
+}
+
+.recommend-upperinfo {
+    height: 139px;
+    overflow-y: scroll;
 }
