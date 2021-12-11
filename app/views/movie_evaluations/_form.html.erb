@@ -12,13 +12,19 @@
   <% end %>
 
 
-  <% if params[:select_movie].present? %>
+
       <div class="field">
         <%= form.label :映画識別id %>
         <%if movie_evaluation.movie_id.present? %>
           <%=movie_evaluation.movie_id%>
+          <%if movie_evaluation.short_criticism.present? && movie_evaluation.score.present? %>
+
+          <%else%>
+            <%=link_to "映画idセット", new_movie_evaluation_path(movie_id:movie_evaluation.movie_id) %>
+            <p><small>※エラーになった場合、必ず「映画idセット」をもう一回クリックしてください！</small></p>
+          <%end%>
         <%else%>
-          <%=params[:movie_id]%>
+          <%= params[:movie_id] %>
         <%end%>
 
 
@@ -61,6 +67,5 @@
     <div class="actions">
       <%= form.submit%>
     </div>
-  <% end %>
 
 <% end %>
