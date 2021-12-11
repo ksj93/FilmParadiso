@@ -10,7 +10,7 @@
 
 <%if params[:looking_for].present? %>
     <% movieinfo = JSON.parse((Tmdb::Search.movie(params[:looking_for])).to_json) %>
-    <h2><%= params[:looking_for] %>の検索結果</h2>
+    <h2>タイトル<%= params[:looking_for] %>の検索結果</h2>
     =====================
     <% i = 0 %>
     <div class="card-wrapper">

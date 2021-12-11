@@ -1,11 +1,14 @@
 <h1>映画評価投稿</h1>
+<div class="movie_information_edit">
+  <%= render 'search', search: @movieinfo %>
+</div>
+<div class="edit_form">
+  <% if params[:movie_id] %>
+    <br>
+    <%= render 'information',info:@movie_evaluation %>
+    <br>
+  <% end %>
+    <%= render 'form', movie_evaluation: @movie_evaluation %>
 
-<%= render 'search', search: @movieinfo %>
-<br>
-<% if params[:movie_id] %>
-  <br>
-  <%= render 'information',info:@movie_evaluation %>
-  <br>
-  <%= render 'form', movie_evaluation: @movie_evaluation %>
-<% end %>
-<%= link_to 'Back', movie_evaluations_path %>
+  <%= link_to 'Back', movie_evaluations_path %>
+</div>
