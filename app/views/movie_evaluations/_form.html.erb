@@ -1,7 +1,7 @@
 <%= form_with(model: movie_evaluation, local: true) do |form| %>
   <% if movie_evaluation.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(movie_evaluation.errors.count, "error") %> prohibited this movie_evaluation from being saved:</h2>
+      <h2>以下の<%= pluralize(movie_evaluation.errors.count, "個") %>の問題が発生しました。:</h2>
 
       <ul>
       <% movie_evaluation.errors.full_messages.each do |message| %>
@@ -11,54 +11,56 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :映画識別id %>
-    <%if movie_evaluation.movie_id.present? %>
-      <%=movie_evaluation.movie_id%>
-    <%else%>
-      <%=params[:movie_id]%>
-    <%end%>
+
+  <% if params[:select_movie].present? %>
+      <div class="field">
+        <%= form.label :映画識別id %>
+        <%if movie_evaluation.movie_id.present? %>
+          <%=movie_evaluation.movie_id%>
+        <%else%>
+          <%=params[:movie_id]%>
+        <%end%>
 
 
-    <% if params[:select_movie].present? %>
-      <%= form.hidden_field :movie_id,:value => params[:movie_id] %>
-    <% end %>
+        <% if params[:select_movie].present? %>
+          <%= form.hidden_field :movie_id,:value => params[:movie_id] %>
+        <% end %>
 
-  </div>
+      </div>
+      <div class="field" id="star">
+        <%= form.label :評点 %>
+        <%if movie_evaluation.score.present? %>
+          <div>
+            <%=movie_evaluation.score%>点
+          </div>
+        <%end%>
+        <%= form.hidden_field :score, id: :review_star  %>
+      </div>
 
 
-    <div class="field" id="star">
-      <%= form.label :評点 %>
-      <%if movie_evaluation.score.present? %>
-        <div>
-          <%=movie_evaluation.score%>点
-        </div>
-      <%end%>
-      <%= form.hidden_field :score, id: :review_star  %>
+    <div class="field">
+      <%= form.label :一言評価 %>
+      <p><%= form.text_area :short_criticism, placeholder: '50字以内で映画を評言', size: "50x2" %></p>
     </div>
 
 
-  <div class="field">
-    <%= form.label :一言評価 %>
-    <p><%= form.text_area :short_criticism, placeholder: '50字以内で映画を評言', size: "50x2" %></p>
-  </div>
 
 
+    <script>
+    $('#star').raty({
+      size     : 36,
+      starOff:  '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'movie_evaluation[score]',
+      half: true,
+    });
+    </script>
 
 
-  <script>
-  $('#star').raty({
-    size     : 36,
-    starOff:  '<%= asset_path('star-off.png') %>',
-    starOn : '<%= asset_path('star-on.png') %>',
-    starHalf: '<%= asset_path('star-half.png') %>',
-    scoreName: 'movie_evaluation[score]',
-    half: true,
-  });
-  </script>
+    <div class="actions">
+      <%= form.submit%>
+    </div>
+  <% end %>
 
-
-  <div class="actions">
-    <%= form.submit%>
-  </div>
 <% end %>

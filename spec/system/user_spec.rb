@@ -82,27 +82,6 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         expect(current_path).to eq root_path
       end
     end
-
-    # context '管理ユーザが管理画面にアクセスし、映画の評価を投稿した場合' do
-    #   it '映画の評価を投稿が出来る' do
-    #     user = FactoryBot.create(:user)
-    #     admin = FactoryBot.create(:admin)
-    #     visit user_session_path
-    #     fill_in "user_email",with: "ee@test.com"
-    #     fill_in "user_password",with: "123456"
-    #     click_button "ログイン"
-    #     visit 'admin/movie_evaluation/new'
-    #     fill_in "movie_evaluation_short_criticism",with: "testtest"
-    #     fill_in "movie_evaluation_score",with: 4.5
-    #     fill_in "movie_evaluation_movie_id",with: 5121
-    #     # fill_in "movie_evaluation_user_id",with: 5121
-    #
-    #     select 'AA',from:'movie_evaluation[user_id]'
-    #
-    #     click_button "保存"
-    #     expect(page).to have_content 'testtest'
-    #   end
-    # end
     context '管理ユーザがユーザの管理画面にアクセスする場合' do
       it 'ユーザの一覧が確認できる' do
         user = FactoryBot.create(:user)
