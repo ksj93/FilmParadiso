@@ -20,8 +20,8 @@
           <%if movie_evaluation.short_criticism.present? && movie_evaluation.score.present? %>
 
           <%else%>
-            <%=link_to "映画idセット", new_movie_evaluation_path(movie_id:movie_evaluation.movie_id) %>
-            <p><small>※エラーになった場合、必ず「映画idセット」をもう一回クリックしてください！</small></p>
+            <%=link_to "映画idセット(新規投稿だけ)", new_movie_evaluation_path(movie_id:movie_evaluation.movie_id,select_movie:'true') %>
+            <p><small>※"新規投稿"エラーになった場合、必ず「映画idセット」をもう一回クリックしてください！</small></p>
           <%end%>
         <%else%>
           <%= params[:movie_id] %>
