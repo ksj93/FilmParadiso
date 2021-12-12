@@ -43,7 +43,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'spring-commands-rspec'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'launchy'
   gem 'rails-controller-testing'
 end
@@ -77,3 +76,5 @@ gem 'devise-i18n'
 gem 'rexml'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
+gem 'gimei'
+gem 'faker'

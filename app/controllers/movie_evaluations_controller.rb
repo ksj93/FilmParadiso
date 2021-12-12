@@ -46,7 +46,7 @@ class MovieEvaluationsController < ApplicationController
     @movie_evaluation.user_id = current_user.id
     respond_to do |format|
       if @movie_evaluation.save
-        format.html { redirect_to @movie_evaluation, notice: "Movie evaluation was successfully created." }
+        format.html { redirect_to @movie_evaluation, notice: "映画の評価を投稿できました！" }
         format.json { render :show, status: :created, location: @movie_evaluation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,7 +59,7 @@ class MovieEvaluationsController < ApplicationController
   def update
     respond_to do |format|
       if @movie_evaluation.update(movie_evaluation_params)
-        format.html { redirect_to @movie_evaluation, notice: "Movie evaluation was successfully updated." }
+        format.html { redirect_to @movie_evaluation, notice: "映画の評価を更新できました！" }
         format.json { render :show, status: :ok, location: @movie_evaluation }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -72,7 +72,7 @@ class MovieEvaluationsController < ApplicationController
   def destroy
     @movie_evaluation.destroy
     respond_to do |format|
-      format.html { redirect_to movie_evaluations_url, notice: "Movie evaluation was successfully destroyed." }
+      format.html { redirect_to movie_evaluations_url, notice: "映画の評価を削除できました！" }
       format.json { head :no_content }
     end
   end

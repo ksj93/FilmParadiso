@@ -7,11 +7,11 @@ FactoryBot.define do
   factory :movie_evaluation_second, class:MovieEvaluation do
     short_criticism { "BB" }
     score { 3 }
-    movie_id { 456 }
+    movie_id { 123 }
   end
   factory :movie_evaluation_third, class:MovieEvaluation do
     short_criticism { "CC" }
     score { 4.5 }
-    movie_id { 789 }
+    movie_id { 123 }
   end
 end
