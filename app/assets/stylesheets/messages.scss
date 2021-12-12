@@ -2,17 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .message-room{
-  width: 850px;
-  float :right;
+  margin: 10px;
+  width: 100%;
+
 }
+
 .conversation-list{
   width: 400px;
-  float :left;
+  float :right;
 }
 .conversation-tag{
   height: 100px;
   margin: 0px 50px;
 }
+
 .conversation-tag-message{
   height: 100px;
   margin: 0px 50px;

@@ -18,7 +18,7 @@
     あなたが投稿した評価
   <%end%>
 </h5>
-<div class="card-pack-yours">
+<div class="card-wrapper_list">
 <% movie_evaluations.each do |movie_evaluation| %>
     <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
     <div class="card mb-3" style="max-width: 540px;">

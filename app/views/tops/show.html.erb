@@ -8,7 +8,10 @@
 
 <div class="movie-information">
   <div class="poster">
-    <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class:"show-img" %>
+    <% if movieshow['table']['poster_path'] != nil %>
+      <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class:"show-img" %>
+    <% else %>
+    <% end %>
   </div>
   <div class="movie-information-text">
     <p class="menu">タイトル</p>

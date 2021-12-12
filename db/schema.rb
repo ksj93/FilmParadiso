@@ -65,15 +65,6 @@ ActiveRecord::Schema.define(version: 2021_12_05_155112) do
     t.index ["user_id"], name: "index_movie_evaluations_on_user_id"
   end
 
-  create_table "movie_recommends", force: :cascade do |t|
-    t.string "genre_name", null: false
-    t.integer "genre_id", null: false
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_movie_recommends_on_user_id"
-  end
-
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id", null: false
     t.integer "followed_id", null: false
@@ -115,5 +106,4 @@ ActiveRecord::Schema.define(version: 2021_12_05_155112) do
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "movie_evaluations", "users"
-  add_foreign_key "movie_recommends", "users"
 end

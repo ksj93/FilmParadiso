@@ -1,10 +1,10 @@
-<%= render 'conversations' %>
 <div class="message-room">
+  <%= render 'conversations' %>
   <% if @over_ten %>
     <%= link_to '以前のメッセージ', '?m=all' %>
   <% end %>
   <div class="ui segment">
-    
+
     <% @messages.each do |message| %>
       <% if message.body.present? %>
         <div class="item">

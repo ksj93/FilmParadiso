@@ -51,7 +51,7 @@
 
 
   <% if @genre_id_array.count == 3 %>
-    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}"%>ジャンルのおすすめ映画</h3>
+    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}"%> ジャンルのおすすめ映画</h3>
     <div class="recommend-wrapper">
       <% moviegenre_recommend_sub1['table']['results'].each do |recommended| %>
         <div class="recommend">
@@ -73,7 +73,7 @@
       <% end %>
     </div>
 
-    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[2]}"%>ジャンルのおすすめ映画</h3>
+    <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[2]}"%> ジャンルのおすすめ映画</h3>
     <div class="recommend-wrapper">
       <% moviegenre_recommend_sub2['table']['results'].each do |recommended| %>
         <div class="recommend">
@@ -95,7 +95,7 @@
       <% end %>
     </div>
 
-    <h3><%="#{@genre_name_array[1]}と#{@genre_name_array[2]}"%>ジャンルのおすすめ映画</h3>
+    <h3><%="#{@genre_name_array[1]}と#{@genre_name_array[2]}"%> ジャンルのおすすめ映画</h3>
     <div class="recommend-wrapper">
       <% moviegenre_recommend_sub3['table']['results'].each do |recommended| %>
         <div class="recommend">

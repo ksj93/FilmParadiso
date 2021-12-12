@@ -71,11 +71,11 @@
   <% unless current_user ==nil %>
     <% unless @movie_evaluation.user_id == current_user.id %>
       <% if @like.present? %>
-        <%= link_to like_path(id: @like.id), method: :delete, class: 'btn btn-danger',notice:"like" do %>
+        <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
           <i class="fas fa-heart unlike-btn" ></i>
         <%end %>
       <% else %>
-        <%= link_to likes_path(movie_evaluation_id: @movie_evaluation.id), method: :post, class: 'btn btn-primary',notice:"unlike" do %>
+        <%= link_to likes_path(movie_evaluation_id: @movie_evaluation.id),name:"like", method: :post, class: 'btn btn-primary',notice:"unlike" do %>
           <i class="fas fa-heart like-btn"></i>
         <%end %>
       <% end %>

@@ -32,7 +32,13 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
-
+.card-wrapper_list {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
 .release-date {
     text-align: right;
 }
