@@ -7,7 +7,7 @@ class FavoriteGenresController < ApplicationController
       @Favorite_genre = FavoriteGenre.new(genre_name:params[:genre_name],genre_id:params[:genre_id],user_id:current_user.id)
       if current_user.favorite_genres.count <= 2
         if @Favorite_genre.save
-          redirect_to new_favorite_genre_path
+          redirect_to new_favorite_genre_path,notice:"#{params[:genre_name]}を追加しました！"
         else
           redirect_to new_favorite_genre_path,notice:"#{params[:genre_name]}は既に追加されています！"
         end
@@ -21,7 +21,7 @@ class FavoriteGenresController < ApplicationController
   def destroy
     @Favorite_genre = FavoriteGenre.find(params[:id])
     if @Favorite_genre.destroy
-      redirect_to new_favorite_genre_path
+      redirect_to new_favorite_genre_path,notice:"#{@Favorite_genre.genre_name}を削除しました！"
     end
   end
 
