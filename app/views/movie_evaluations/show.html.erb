@@ -84,8 +84,8 @@
   <% end %>
   <% if @movie_evaluation.user_id == current_user.id || current_user.admin  == true  %>
      |
-    <%= link_to 'Edit', edit_movie_evaluation_path(@movie_evaluation) %> |
-    <%= link_to 'Destroy', @movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %> |
+    <%= link_to '編集', edit_movie_evaluation_path(@movie_evaluation) %> |
+    <%= link_to '削除', @movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %> |
   <% end %>
-  <%= link_to 'Back', movie_evaluations_path %>
+  <%= link_to '一覧へ', movie_evaluations_path %>
 </div>

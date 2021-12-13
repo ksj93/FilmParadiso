@@ -81,12 +81,12 @@
             <p class="card-text"><%= movie_evaluation.short_criticism %></p>
             <p class="card-text"><small class="text-muted"><%= movie_evaluation.created_at %></small></p>
             <p class="card-text"><small class="crud-menu">
-              <%= link_to 'Show', movie_evaluation %>
+              <%= link_to '詳細', movie_evaluation %>
               <% if current_user != nil %>
                 <% if movie_evaluation.user_id == current_user.id || current_user.admin  == true %>
                    |
-                  <%= link_to 'Edit', edit_movie_evaluation_path(movie_evaluation) %> |
-                  <%= link_to 'Destroy', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <%= link_to '編集', edit_movie_evaluation_path(movie_evaluation) %> |
+                  <%= link_to '削除', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% end %>
               <% end %>
             </small></p>
