@@ -33,3 +33,32 @@
 .search_form{
   text-align: center;
 }
+.search-result-form{
+
+}
+
+.search-all{
+  width: 70%;
+  margin: 70px 250px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.search-card{
+  border-radius: 10px;
+  width: 20%;
+  margin-bottom: 10;
+  padding: 20px;
+  box-sizing: border-box;
+  float: left;
+  text-align: center;
+}
+
+.search-info{
+}
+
+.search-img{
+  width: 50%;
+  border-radius: 16px;
+}

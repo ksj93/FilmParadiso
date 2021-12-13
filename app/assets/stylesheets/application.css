@@ -14,7 +14,14 @@
  *= require_tree .
  *= require_self
  */
-
+.validations{
+  width: 100%;
+  margin: 10px;
+  text-align:center;
+  background-color: skyblue;
+  font-weight: bold;
+  color: white;
+}
 
 .alert{
   width: 100%;
@@ -96,14 +103,10 @@ article{
 }
 html {
     position: relative;
-    min-height: 100%;
-    margin: 0;
-
-
+    min-height: 120%;
+    margin: 10;
 }
 
 body {
-
     min-height: 100%;
-
 }
