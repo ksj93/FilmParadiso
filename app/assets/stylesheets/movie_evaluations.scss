@@ -35,7 +35,7 @@
 
 .card-wrapper {
     width: 70%;
-    margin: auto;
+    margin-bottom: 10px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -54,6 +54,9 @@
 .card-img {
     width: 50%;
     border-radius: 16px;
+}
+.no-image {
+    height:95px;
 }
 
 .card-upperinfo {
