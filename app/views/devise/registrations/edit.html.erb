@@ -50,4 +50,7 @@
 
 <p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete %></p>
 
-<%= link_to t('devise.shared.links.back'), :back %>
+
+<div class="link-signup-form">
+  <%= link_to t('devise.shared.links.back'), :back %>
+</div>
