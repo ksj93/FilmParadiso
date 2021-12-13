@@ -9,7 +9,7 @@ class FavoriteGenresController < ApplicationController
         if @Favorite_genre.save
           redirect_to new_favorite_genre_path
         else
-          render :new
+          redirect_to new_favorite_genre_path,notice:"#{params[:genre_name]}は既に追加されています！"
         end
       else
         flash.now[:alert] = '選択出来るジャンルは最大3個までです！！'

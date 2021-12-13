@@ -1,17 +1,17 @@
 
-<h1>映画検索</h1>
+<h1 class="search_form">映画検索</h1>
 
-<div>
+<div class="search_form">
   <%= form_tag(search_tops_path, method: :get) do %>
-    <%= search_field_tag :looking_for, nil, placeholder: "映画のタイトルを入力して検索",size:50 %>
+    <%= search_field_tag :looking_for, nil, placeholder: "映画のタイトルを入力して検索",size:50,class:"search_form"%>
     <%= submit_tag '検索' %>
   <% end %>
 </div>
 
 <%if params[:looking_for].present? %>
     <% movieinfo = JSON.parse((Tmdb::Search.movie(params[:looking_for])).to_json) %>
-    <h2>タイトル<%= params[:looking_for] %>の検索結果</h2>
-    =====================
+    <h2 class="search_form">タイトル「<%= params[:looking_for] %>」の検索結果</h2>
+    <p class="search_form">===========================================================================================================</p>
     <% i = 0 %>
     <div class="card-wrapper">
         <% while i < movieinfo['table']['results'].count %>
@@ -37,6 +37,27 @@
         <%end%>
     </div>
 <%else%>
+  <% moviegenre_recommend = JSON.parse((Tmdb::Movie.popular).to_json) %>
+  <h3 class="search_form">本日の世界のトレンド</h3>
+  <p class="search_form">===========================================================================================================</p>
+    <div class="recommend-wrapper">
+      <% moviegenre_recommend['table']['results'].each do |recommended| %>
+        <div class="recommend">
+          <% if recommended['table']['poster_path'].present? %>
+              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
+          <%end%>
+          <div class="recommend-upperinfo">
+              <%if recommended['table']['title'].present?%>
+                  <h5>タイトル</h5>
+                  <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+              <%end%>
 
+              <% if recommended['table']['release_date'].present? %>
+                  <h5>リリース</h5>
+                  <p class="release-date"><%= recommended['table']['release_date'] %></p>
+              <%end%>
+          </div>
+        </div>
+      <% end %>
     </div>
 <%end%>

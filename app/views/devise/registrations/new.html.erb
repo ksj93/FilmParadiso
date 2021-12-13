@@ -6,12 +6,12 @@
 
     <div class="field">
       <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true%>
+      <%= f.text_field :name, autofocus: true,placeholder:"ユーザー名を入力してください",size:"35x10"%>
     </div>
 
     <div class="field">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",placeholder:"Eメールを入力してください",size:"35x10" %>
     </div>
 
     <div class="field">
@@ -19,12 +19,12 @@
       <% if @minimum_password_length %>
       <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
       <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
+      <%= f.password_field :password, autocomplete: "new-password",placeholder:"パスワードを入力してください",size:"35x10" %>
     </div>
 
     <div class="field">
       <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password",placeholder:"確認の為、もう一回入力してください",size:"35x10" %>
     </div>
 
     <div class="actions">
