@@ -1,7 +1,15 @@
 // Place all the styles related to the movie_evaluations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
+.list-place{
+  margin: 150px 0px;
+}
+.title-place{
+  text-align: center;
+}
+.blank-place{
+  margin: 200px 0px;
+}
 .menu{
   font-size: 1.4rem;
   font-weight: bold;
@@ -73,10 +81,10 @@
   height: 400px;
 }
 
-.edit_form{
-  height: 450px;
+.evaluation_form{
+  margin:150px 0px 300px 0px
 }
 
 .show_form{
-  height: 450px;
+  margin:150px 0px 300px 0px
 }
