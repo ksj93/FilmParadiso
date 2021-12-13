@@ -30,7 +30,7 @@
                 <% if @movieinfo['table']['results'][i]['table']['poster_path'].present? %>
                     <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + @movieinfo['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
                 <%end%>
-                <p class="select_movie"><%=link_to "select",new_movie_evaluation_path(movie_id:@movieinfo['table']['results'][i]['table']['id'],select_movie:"true")%></p>
+                <p class="select_movie"><%=link_to "選択",new_movie_evaluation_path(movie_id:@movieinfo['table']['results'][i]['table']['id'],select_movie:"true")%></p>
             </div>
             <% i += 1%>
         <%end%>

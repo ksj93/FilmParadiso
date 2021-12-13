@@ -10,31 +10,67 @@ ja:
       relationship: フォロー
     attributes:
       conversation:
-        sender_id: 送信者
-        recipient_id: 受信者
+        sender_id: 送信者id
+        sender: 送信者
+        recipient_id: 受信者id
+        recipient: 受信者
+        created_at: 作成日付
+        updated_at: 更新日付
+        messages: メッセージ
       user:
         email: Eメール
         encrypted_password: パスワード(暗号化)
         admin: 管理者権限
         guest: ゲスト有無
         name: ユーザー名
+        created_at: 作成日付
+        updated_at: 更新日付
+        movie_evaluations: 映画評価
+        active_relationships: フォロイング
+        passive_relationships: フォロワー
+        following: 私がフォローしたユーザー
+        followers: 私をフォローしたユーザー
+        likes: 挙げたいいね
+        like_evaluations: いいねした映画評価
+        messages : 送ったメッセージ
+        favorite_genres: お好みジャンル
       favorite_genre:
         genre_name: ジャンル名
         genre_id: ジャンルid
         user_id: ユーザーid
+        created_at: 作成日付
+        updated_at: 更新日付
+        user: ユーザー
       like:
         user_id: ユーザーid
+        user: いいねしたユーザー
         movie_evaluation_id: 映画評価id
+        movie_evaluation: いいねをもらった映画評価
+        created_at: 作成日付
+        updated_at: 更新日付
       message:
         body: 内容
         conversation_id: 会話ルームid
+        conversation: 会話ルーム
         user_id: 送信者id
+        user: 送信者
         read: 既読有無
+        created_at: 作成日付
+        updated_at: 更新日付
       movie_evaluation:
         short_criticism: 批評
         score: 評点
         movie_id: 映画id
         user_id: 作成者id
+        user: 作成者
+        created_at: 作成日付
+        updated_at: 更新日付
+        likes: 貰ったいいね
+        like_users: いいねしたユーザー
       relationship:
         follower_id: フォロワーid
+        follower: フォロワー
         followed_id: フォロイングid
+        followed: フォロイング
+        created_at: 作成日付
+        updated_at: 更新日付
