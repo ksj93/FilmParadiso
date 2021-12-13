@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'ユーザーモデル機能', type: :model do
+describe 'お好みジャンルモデル機能', type: :model do
   let!(:user) {FactoryBot.create(:user)}
   let!(:favorite_genre) {FactoryBot.create(:favorite_genre,user:user)}
   describe 'バリデーションのテスト' do
