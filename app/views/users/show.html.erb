@@ -1,17 +1,21 @@
 <h1><%= @user.name %>様のプロフィール</h1>
 <p>名前 : <%= @user.name %></p>
-<p>メールアドレス : <%= @user.email %></p>
-  <%= render 'follow_form', user: @user %>
-  <%= link_to 'メッセージ',conversations_path  %>||
-  <%# conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: :post %>
-  <%= link_to 'フォロイング',relationships_path(follow:'true') %>　||
-  <%= link_to 'フォロワー',relationships_path(followed:'true') %>　||
-  <%= link_to '💛した評価',likes_path %>
-<br>
-<br>
+<p>メールアドレス : <%= @user.email %><%= render 'follow_form', user: @user %></p>
+  <% if @user.id == current_user.id%>
+    <p>
+      <%= link_to 'メッセージ',conversations_path  %>||
+      <%= link_to 'フォロイング',relationships_path(follow:'true') %>　||
+      <%= link_to 'フォロワー',relationships_path(followed:'true') %>　||
+      <%= link_to '💛した評価',likes_path %>
+    </p>
+    <p><%= link_to "自分にメッセージ",conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: :post,class:"message-to-user" %></p>
+  <% else %>
+    <p><%= link_to "#{@user.name}さんにメッセージ",conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: :post,class:"message-to-user" %></p>
+  <% end %>
+
 <div class="links">
   <% if @user.id == current_user.id%>
-      <%= link_to "プロフィール編集", edit_user_registration_path %>
+      <%= link_to "プロフィール編集", edit_user_registration_path %> ||
       <%= link_to "退会", user_registration_path ,method: :delete, data: { confirm: '退会になると、今まで作成した情報全てが削除されますが、本当に退会してもよろしいでしょうか?' } %>
     <% if @user.admin == true && @user.id == current_user %>
       <%= link_to "管理画面", rails_admin_path %>
