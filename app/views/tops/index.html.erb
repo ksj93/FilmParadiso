@@ -8,13 +8,20 @@
 
   <h3>コンセプト</h3>
   <p>FilmParadisoは映画好きな人同士の情報・意見交流を指向するアプリケーションです。</p>
-  <% if user_signed_in? %>
+  <div class="guest-login-button">
+    <% if user_signed_in? %>
 
-  <% else %>
-    <h3>ゲストログイン</h3>
-    <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post,class:"guest-login" %>
-    <%= link_to 'ゲスト管理者ログイン（閲覧用）', users_guest_admin_sign_in_path, method: :post,class:"guest-login" %>
-  <% end %>
+    <% else %>
+      <h3>ゲストログイン</h3>
+      <br>
+      <p>
+        <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post,class:"guest-login" %>
+        <%= link_to 'ゲスト管理者ログイン（閲覧用）', users_guest_admin_sign_in_path, method: :post,class:"guest-login" %>
+      </p>
+    <% end %>
+  </div>
+
+
   <br>
 </div>
 <h3 class="title-place">本日の世界のトレンド</h3>
