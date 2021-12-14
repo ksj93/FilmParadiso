@@ -9,7 +9,7 @@
   <h3>コンセプト</h3>
   <p>FilmParadisoは映画好きな人同士の情報・意見交流を指向するアプリケーションです。</p>
   <% if user_signed_in? %>
-    
+
   <% else %>
     <h3>ゲストログイン</h3>
     <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post,class:"guest-login" %>
@@ -17,36 +17,42 @@
   <% end %>
   <br>
 </div>
-<h3>本日の世界のトレンド</h3>
-<%= link_to "映画検索",search_tops_path %>
+<h3 class="title-place">本日の世界のトレンド</h3>
+<p class="title-place"><%= link_to "映画検索",search_tops_path %></p>
 <% moviepopular = JSON.parse((Tmdb::Movie.popular).to_json) %>
 <% i = 0 %>
-<div class="card-wrapper">
-    <% while i < 5 %>
-        <div class="card">
-          <% if moviepopular['table']['results'][i]['table']['poster_path'].present? %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + moviepopular['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
-          <%end%>
-            <div class="card-upperinfo">
-                <%if moviepopular['table']['results'][i]['table']['title'].present?%>
-                    <h5>タイトル</h5>
-                    <h6><%= link_to moviepopular['table']['results'][i]['table']['title'], top_path(moviepopular['table']['results'][i]['table']['id'])%></h6>
-                <%end%>
+<div class="card-pack">
+  <div class="card-wrapper">
+      <% while i < 5 %>
+          <div class="card">
+            <% if moviepopular['table']['results'][i]['table']['poster_path'].present? %>
+                <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + moviepopular['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
+            <%end%>
+              <div class="card-upperinfo">
+                  <%if moviepopular['table']['results'][i]['table']['title'].present?%>
+                      <h5>タイトル</h5>
+                      <h6><%= link_to moviepopular['table']['results'][i]['table']['title'], top_path(moviepopular['table']['results'][i]['table']['id'])%></h6>
+                  <%end%>
 
-                <% if moviepopular['table']['results'][i]['table']['release_date'].present? %>
-                    <h5>リリース</h5>
-                    <p class="release-date"><%= moviepopular['table']['results'][i]['table']['release_date'] %></p>
-                <%end%>
-            </div>
-        </div>
-        <% i += 1%>
-    <%end%>
+                  <% if moviepopular['table']['results'][i]['table']['release_date'].present? %>
+                      <h5>リリース</h5>
+                      <p class="release-date"><%= moviepopular['table']['results'][i]['table']['release_date'] %></p>
+                  <%end%>
+              </div>
+          </div>
+          <% i += 1%>
+      <%end%>
+  </div>
 </div>
 
 
-<h2>最新投稿</h2>
-<%= link_to "映画評価作成",new_movie_evaluation_path %>
-<%= link_to "映画評価一覧",movie_evaluations_path %>
+
+<h2 class="title-place">最新投稿</h2>
+<p class="title-place">
+  <%= link_to "映画評価作成",new_movie_evaluation_path %>
+  <%= link_to "映画評価一覧",movie_evaluations_path %>
+</p>
+
 <p>
   <%= render "evaluation",movie_evaluations:@movie_evaluations %>
 </p>

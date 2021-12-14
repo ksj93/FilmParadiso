@@ -16,12 +16,12 @@
             <div class="card">
                 <div class="card-upperinfo">
                     <%if @movieinfo['table']['results'][i]['table']['title'].present?%>
-                        <h2>タイトル</h2>
-                        <h3><%= link_to @movieinfo['table']['results'][i]['table']['title'],tops_path(@movieinfo['table']['results'][i]['table']['id']) %></h3>
+                        <p>タイトル</p>
+                        <p><%= link_to @movieinfo['table']['results'][i]['table']['title'],top_path(@movieinfo['table']['results'][i]['table']['id']) %></p>
                     <%end%>
 
                     <% if @movieinfo['table']['results'][i]['table']['release_date'].present? %>
-                        <h3>リリース</h3>
+                        <p>リリース</p>
                         <p class="release-date"><%= @movieinfo['table']['results'][i]['table']['release_date'] %></p>
                     <%end%>
                 </div>
