@@ -22,22 +22,20 @@
 <% end %>
 
 <% moviegenre = JSON.parse((Tmdb::Genre.movie_list).to_json) %>
-
-<h3>あなたの好み</h3>
-<small>※最大3個まで</small>
-<br>
-
-<div class="genre-list">
-  <% current_user.favorite_genres.each do |favorite| %>
-      <%= link_to favorite.genre_name,favorite,method: :delete,data: { confirm: '選択したジャンルを本当に削除しますか?' },class:"genre"%>
-  <% end %>
-</div>
-<br>
-
-<h3>全体ジャンルのリスト</h3>
-
-<div class="genre-list">
-  <% moviegenre.each do |genre|%>
-    <p class ="genres"><%= link_to genre['table']['name'], new_favorite_genre_path(update_favorite: "true",genre_name:genre['table']['name'],genre_id:genre['table']['id']),data: { confirm: '選択したジャンルがあなたの好みですか?' },class:"genre"%></p>
-  <% end %>
+<div class="genre-area">
+  <h3>あなたの好み</h3>
+  <small>※最大3個まで</small>
+  <br>
+  <div class="genre-select">
+    <% current_user.favorite_genres.each do |favorite| %>
+        <%= link_to favorite.genre_name,favorite,method: :delete,data: { confirm: '選択したジャンルを本当に削除しますか?' },class:"genre"%>
+    <% end %>
+  </div>
+  <h3>全体ジャンルのリスト</h3>
+  <br>
+  <div class="genre-list">
+    <% moviegenre.each do |genre|%>
+      <p class ="genres"><%= link_to genre['table']['name'], new_favorite_genre_path(update_favorite: "true",genre_name:genre['table']['name'],genre_id:genre['table']['id']),data: { confirm: '選択したジャンルがあなたの好みですか?' },class:"genre"%></p>
+    <% end %>
+  </div>
 </div>

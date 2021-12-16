@@ -1,3 +1,36 @@
 // Place all the styles related to the likes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.like-btn {
+ width: 25px;
+ height: 30px;
+ font-size: 25px;
+ color: #808080;
+ margin-left: 20px;
+ }
+
+.unlike-btn {
+ width: 25px;
+ height: 30px;
+ font-size: 25px;
+ color: #e54747;
+ margin-left: 20px;
+ }
+
+.btn-primary{
+  background-color: inherit;
+  border: inherit;
+}
+.btn-primary:hover{
+  background-color: inherit;
+  border: inherit;
+}
+.btn-danger{
+  background-color: inherit;
+  border: inherit;
+}
+.btn-danger:hover{
+  background-color: inherit;
+  border: inherit;
+}

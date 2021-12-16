@@ -2,9 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.conversation-list_index{
+.conversation-index{
 
 }
-.conversation-tag_index{
-  margin: 0px 50px;
+
+.conversation-tag-index{
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  width: 55%;
+  border-radius: 12px;
+  margin: 10px 20%;
+  height: auto;
 }

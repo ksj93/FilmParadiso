@@ -4,13 +4,15 @@
   <h3>あなたをフォローしたユーザー</h3>
 <% end %>
 <br>
-
-<% @users.each do |user| %>
-  <p>
-    <%= link_to user.name , users_show_path(id:user.id) %>
-    <%= user.email %>
-    <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %>
-    <%= render 'users/follow_form', user: user %>
-  </p>
-
-<% end %>
+<div class="user-index">
+  <% @users.each do |user| %>
+    <div class="user-info">
+      <%= link_to user.name , users_show_path(id:user.id) %>
+      <%= user.email %>
+      <%= link_to 'メッセージ', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post %>
+      <div class="follow-form">
+        <%= render 'users/follow_form', user: user %>
+      </div>
+    </div>
+  <% end %>
+</div>

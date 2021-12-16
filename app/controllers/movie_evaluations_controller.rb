@@ -6,6 +6,7 @@ class MovieEvaluationsController < ApplicationController
 
   # GET /movie_evaluations or /movie_evaluations.json
   def index
+    # @like = current_user.likes.find_by(movie_evaluation_id:movie_evaluation.id)
     @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC").limit(3)
     @movie_evaluations_order_create = MovieEvaluation.order(created_at:"DESC").limit(3)
     @movie_evaluations_order_likes = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}[0..2]
@@ -51,6 +52,9 @@ class MovieEvaluationsController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @movie_evaluation.errors, status: :unprocessable_entity }
+        # test code
+        # format.html { redirect_to new_movie_evaluation_path(movie_id:@movie_evaluation.movie_id,select_movie:'true'), status: :unprocessable_entity}
+        # format.json { render json: @movie_evaluation.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -29,13 +29,15 @@
 <% moviepopular = JSON.parse((Tmdb::Movie.popular).to_json) %>
 <% i = 0 %>
 <div class="card-pack">
-  <div class="card-wrapper">
-      <% while i < 5 %>
-          <div class="card">
+  <div class="movie-list-all">
+      <% while i < 6 %>
+          <div class="movie-list">
             <% if moviepopular['table']['results'][i]['table']['poster_path'].present? %>
-                <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + moviepopular['table']['results'][i]['table']['poster_path'],class: "card-img" %></p>
-            <%end%>
-              <div class="card-upperinfo">
+                <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + moviepopular['table']['results'][i]['table']['poster_path'],class: "poster-img" %></p>
+            <% else %>
+                <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
+            <% end %>
+              <div class="movie-info">
                   <%if moviepopular['table']['results'][i]['table']['title'].present?%>
                       <h5>タイトル</h5>
                       <h6><%= link_to moviepopular['table']['results'][i]['table']['title'], top_path(moviepopular['table']['results'][i]['table']['id'])%></h6>

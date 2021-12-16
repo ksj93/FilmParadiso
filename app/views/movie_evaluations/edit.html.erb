@@ -1,8 +1,6 @@
 <h1>映画評価の編集</h1>
-<div class="movie_information_edit">
+<div class="evaluation-form">
   <%= render 'information',info:@movie_evaluation %>
-</div>
-<div class="evaluation_form">
   <%= render 'form', movie_evaluation: @movie_evaluation %>
   <%= link_to '詳細', @movie_evaluation %> |
   <%= link_to '一覧へ', movie_evaluations_path %>
