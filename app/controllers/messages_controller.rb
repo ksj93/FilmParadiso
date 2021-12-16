@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   end
 
   def index
-    # @conversations = Conversation.where(sender_id:current_user).or(Conversation.where(recipient_id:current_user))
+    @conversations = Conversation.where(sender_id:current_user).or(Conversation.where(recipient_id:current_user))
     @messages = @conversation.messages
     if @messages.length > 10
       @over_ten = true
@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    # @conversations = Conversation.where(sender_id:current_user).or(Conversation.where(recipient_id:current_user))
+    @conversations = Conversation.where(sender_id:current_user).or(Conversation.where(recipient_id:current_user))
     @message = @conversation.messages.build(message_params)
     if @message.save
       redirect_to conversation_messages_path(@conversation)

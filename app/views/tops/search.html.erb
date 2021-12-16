@@ -7,21 +7,21 @@
     <%= submit_tag '検索' %>
   <% end %>
 </div>
-<div class="search-result-form">
+<div class="movie-list-wrap">
   <%if params[:looking_for].present? %>
       <% movieinfo = JSON.parse((Tmdb::Search.movie(params[:looking_for])).to_json) %>
       <h2 class="search_form">タイトル「<%= params[:looking_for] %>」の検索結果</h2>
       <p class="search_form">===========================================================================================================</p>
       <% i = 0 %>
-      <div class="search-all">
+      <div class="movie-list-all">
           <% while i < movieinfo['table']['results'].count %>
-              <div class="search-card">
+              <div class="movie-list">
                 <% if movieinfo['table']['results'][i]['table']['poster_path'].present? %>
-                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieinfo['table']['results'][i]['table']['poster_path'],class: "search-img" %></p>
+                    <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieinfo['table']['results'][i]['table']['poster_path'],class: "poster-img" %></p>
                 <% else %>
-                    <p><%= image_tag 'no_image.png',class: "search-img" %></p>
+                    <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
                 <%end%>
-                <div class="search-info">
+                <div class="movie-info">
                   <%if movieinfo['table']['results'][i]['table']['title'].present?%>
                       <p>タイトル</p>
                       <p><%= link_to movieinfo['table']['results'][i]['table']['title'],top_path(movieinfo['table']['results'][i]['table']['id']) %></p>
@@ -40,13 +40,13 @@
     <% moviegenre_recommend = JSON.parse((Tmdb::Movie.popular).to_json) %>
     <h3 class="search_form">本日の世界のトレンド</h3>
     <p class="search_form">===========================================================================================================</p>
-      <div class="search-all">
+      <div class="movie-list-all">
         <% moviegenre_recommend['table']['results'].each do |recommended| %>
-          <div class="search-card">
+          <div class="movie-list">
             <% if recommended['table']['poster_path'].present? %>
-                <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "search-img" %></p>
+                <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "poster-img" %></p>
             <%end%>
-            <div class="search-info">
+            <div class="movie-info">
                 <%if recommended['table']['title'].present?%>
                     <p>タイトル</p>
                     <p><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></p>

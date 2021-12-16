@@ -14,6 +14,124 @@
  *= require_tree .
  *= require_self
  */
+html{
+  height: 100%;
+}
+
+body{
+  height: 100%;
+}
+
+.body-wrap{
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 20px;
+}
+
+.header{
+  padding: 25px 0px;
+  background-color: #2c3e50;
+  margin: 0px 10px 0px 0px;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.app_tilte{
+  font-size: 2rem;
+  color: white;
+  margin: 0 0 0 20px;
+  font-weight: bold;
+}
+
+.header ul{
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.link-list{
+  float: right;
+}
+
+.header li{
+  list-style:none;
+  float: left;
+  font-size: 1.2rem;
+  margin: 0 5px 0 5px;
+}
+
+li a{
+  color: white;
+  font-weight: bold;
+}
+
+li a:hover{
+  color: grey;
+}
+
+.app_tilte{
+  text-align: left;
+}
+
+.footer{
+  padding: 20px 0px;
+  background-color: #2c3e50;
+  margin: 10px 0px 0px 0px;
+  position: absolute;
+  bottom: 0;
+  width: 100%
+}
+
+.footer p{
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.article{
+  width: 100%;
+  margin: 10px 0px 70px 0px;
+}
+
+.side-menu{
+  list-style:none;
+  background-color: #2c3e50;
+  width: 320px;
+  margin: 10px 10px;
+  position:fixed;
+  float: left;
+  overflow: auto;
+  border-radius: 25px;
+}
+
+.side-img-area{
+
+}
+.side-img{
+  width: 320px;
+  margin: 220px 10px ;
+  position:fixed;
+  float: left;
+
+}
+
+.side-menu li{
+  padding:20px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.side-menu li:hover{
+  opacity: 70%;
+}
+
+
+.content-area{
+  margin-left: 350px;
+  text-align: center;
+}
+
 .validations{
   width: 100%;
   margin: 10px;
@@ -31,82 +149,4 @@
   background-color: skyblue;
   font-weight: bold;
   color: white;
-}
-
-.link-list{
-  float: right;
-}
-li{
-  margin: 0px 5px;
-}
-.app_title{
-  display: block;
-  padding: 0 0;
-  margin: 0 0;
-  float: left;
-}
-span{
-  font-size: 1.8rem;
-  font-weight: bold;
-  color:white
-}
-
-header {
-  width: 100%;
-  background-color: #2c3e50;
-  height: auto;
-  padding: 20px 0px;
-  margin: auto;
-}
-header ul {
-  margin: 0 0;
-  list-style: none;
-}
-header ul a {
-  display: block;
-  padding: 2px;
-  text-decoration: none;
-  color: white;
-}
-header li {
-  float: left;
-  width: auto;
-}
-header ul:after {
-  content: "";
-  display: block;
-  clear: both;
-}
-/* footer {
-  width: 100%;
-  background-color:#2c3e50;
-  padding: 20px 0;
-  color: white;
-  font-size: 18px;
-  text-align: center;
-} */
-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-	padding: 15px 0;
-	text-align: center;
-	color: white;
-	background-color: #2c3e50;
-
-}
-article{
-  width: 100%;
-
-
-}
-html {
-    position: relative;
-    min-height: 120%;
-    margin: 10;
-}
-
-body {
-    min-height: 100%;
 }

@@ -2,66 +2,74 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.information_app{
-  text-align: center;
-}
-.top-image{
-  width: 100px;
-}
-.card {
-  display: inline-block;
-  float: left;
-}
-.card-pack{
-  display: flex;
-  justify-content: center;
-}
-
-.show-img{
-  width: 500px;
-  border-radius: 16px;
-  float: left;
-}
+//guest login
 .guest-login{
   background-color: #191970;
-  padding: 10px 10px;
-  margin: 10px;
-  border-radius: 15px;
-  color: white;
+  font-size: 1.2rem;
   font-weight: bold;
-}
-.search_form{
-  text-align: center;
-}
-.search-result-form{
-
+  color: white;
+  padding: 15px;
+  margin: 0px 5px;
+  border-radius: 25px;
 }
 
-.search-all{
-  width: 70%;
-  margin: 70px 250px;
+.guest-login:hover{
+  opacity: 50%;
+  color: white;
+}
+
+//search
+.movie-list-wrap{
+}
+
+.movie-list-all{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
 
-.search-card{
-  border-radius: 10px;
-  width: 20%;
-  margin-bottom: 10;
-  padding: 20px;
-  box-sizing: border-box;
+.movie-list{
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  width: 45%;
+  border-radius: 12px;
+  margin: 5px;
+}
+
+.movie-info{
+
+}
+
+.poster-img{
   float: left;
-  text-align: center;
+  width: 20%;
+  margin: 10px 5px;
+  border-radius: 12px;
 }
 
-.search-info{
+//show
+.movie-show{
+  width: 100%;
+  padding-left: 25%;
+  margin-left: 10px;
 }
 
-.search-img{
-  width: 50%;
-  border-radius: 16px;
+.show-poster{
 }
-.guest-login-button{
-  margin: 50px 0px;
+
+.show-text{
+  text-align: left;
+}
+
+.menu{
+  font-size: 1.4rem;
+}
+
+.show-img{
+  width:25%;
+  border-radius: 24px;
+  float: left;
+}
+
+.cast{
+  margin: 10px 0px;
 }

@@ -7,33 +7,41 @@
     <h3 class="title-place">「<%= User.find(@conversation.sender_id).name %>」様とのメッセージ</h3>
   <% end %>
 </div>
-<% if @over_ten %>
-  <%= link_to '以前のメッセージ', '?m=all' %>
-<% end %>
-<div class="ui segment">
 
-  <% @messages.each do |message| %>
-
-    <% if message.body.present? %>
-      <div class="item">
-        <div class="content">
-          <div class="header"><strong><%= message.user.name %></strong><%= message.message_time %></div>
-          <div class="list">
-            <div class="item">
-              <i class="right triangle icon"></i>
-              <%= message.body %>
-              <% if @conversation.sender_id != @conversation.recipient_id %>
-                <% if message.user == current_user %>
-                   /<%= message.read ? '既読' : '未読' %>
+<div class="message-show-area">
+  <div class="conversation-content">
+    <%= render "conversations", conversations: @conversations %>
+  </div>
+  <div class="message-content">
+    <% if @over_ten %>
+      <%= link_to '以前のメッセージ', '?m=all' %>
+    <% end %>
+    <% @messages.each do |message| %>
+      <% if message.body.present? %>
+        <div class="item">
+          <div class="content">
+            <div class="message-head">
+              <strong><%= message.user.name %></strong>
+              <p><small><%= message.message_time %></small></p>
+            </div>
+            <div class="list">
+              <div class="body">
+                <i class="right triangle icon"></i>
+                <%= message.body %>
+                <% if @conversation.sender_id != @conversation.recipient_id %>
+                  <% if message.user == current_user %>
+                     /<%= message.read ? '既読' : '未読' %>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
+
 
 <div class="message-form">
   <%= form_with(model: [@conversation, @message]) do |f| %>

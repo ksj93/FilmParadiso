@@ -1,110 +1,67 @@
 // Place all the styles related to the movie_evaluations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.list-place{
-  margin: 150px 0px;
+
+.evaluation-list-all{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
-.title-place{
+
+.evaluation-list{
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  width: 65%;
+  border-radius: 12px;
+  margin: 5px;
+}
+
+.evaluation-info{
+
+}
+
+.evaluation-movie-title{
+  float: left;
+}
+
+//show
+.evaluation-show{
   text-align: center;
-}
-.blank-place{
-  margin: 200px 0px;
-}
-.menu{
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-.thumbnail_img{
-  width: 150px;
-  border-radius: 16px;
+  margin: 0 10%;
 }
 
-.edit_img{
-  width: 150px;
-  border-radius: 16px;
+.evaluation-show-list{
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  width: 100%;
+  border-radius: 12px;
 }
 
-.card {
-    // box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    width: 20%;
-    margin-bottom: 50px;
-    padding: 20px;
-    box-sizing: border-box;
+.evaluation-show-info{
+
+  margin: 10px;
+  overflow: auto;
 }
 
-.card-wrapper {
-    width: 70%;
-    margin-bottom: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-.card-wrapper_list {
-    width: 90%;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-.release-date {
-    text-align: right;
+.show-form{
+
 }
 
-.card-img {
-    width: 50%;
-    border-radius: 16px;
-}
-.no-image {
-    height:95px;
+//new,edit
+.evaluation-info-list{
+
 }
 
-.card-upperinfo {
-    height: 139px;
-    overflow-y: scroll;
+.evaluation-info{
+
 }
 
-.like-btn {
- width: 25px;
- height: 30px;
- font-size: 25px;
- color: #808080;
- margin-left: 20px;
- }
-
-.unlike-btn {
- width: 25px;
- height: 30px;
- font-size: 25px;
- color: #e54747;
- margin-left: 20px;
- }
-
-.btn-primary{
-  background-color: inherit;
-  border: inherit;
-}
-.btn-primary:hover{
-  background-color: inherit;
-  border: inherit;
-}
-.btn-danger{
-  background-color: inherit;
-  border: inherit;
-}
-.btn-danger:hover{
-  background-color: inherit;
-  border: inherit;
+.evaluation-form{
+  margin: 0 10%;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
 }
 
-.card-pack-yours{
-  height: 400px;
-}
-
-.evaluation_form{
-  margin:150px 0px 300px 0px
-}
-
-.show_form{
-  margin:150px 0px 300px 0px
+.evaluation-new-search{
+  margin: 10px 10%;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
 }

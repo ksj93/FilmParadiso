@@ -1,91 +1,94 @@
 <h1>映画の詳細情報</h1>
-
-<% movieshow = JSON.parse((Tmdb::Movie.detail(@movie_evaluation.movie_id)).to_json) %>
-  <div class="card">
-  <%if movieshow['table']['poster_path']== nil %>
-    <p>no image</p>
-  <% else %>
-    <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "card-img" %>
-  <% end %>
-
-    <div class="card-upperinfo">
-      <p>タイトル</p>
-      <p><%= movieshow['table']['title']  %></p>
-      <p>リリース</p>
-      <p><%= movieshow['table']['release_date'] %></p>
-      <p>上映時間</p>
-      <p><%= movieshow['table']['runtime'] %></p>
-      <p>ジャンル</p>
-      <p>
-        <% movieshow['table']['genres'].each do |genre| %>
-          <%= genre['table']['name'] %>
+<div class="evaluation-show">
+  <% movieshow = JSON.parse((Tmdb::Movie.detail(@movie_evaluation.movie_id)).to_json) %>
+    <div class="evaluation-show-list">
+      <div>
+        <%if movieshow['table']['poster_path']== nil %>
+          <p>no image</p>
+        <% else %>
+          <%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "poster-img" %>
         <% end %>
+      </div>
+      <div class="evaluation-show-info">
+        <p>タイトル</p>
+        <p><%= link_to movieshow['table']['title'], top_path(movieshow['table']['id']),class:"movie-evaluation-title" %></p>
+        <p>リリース</p>
+        <p><%= movieshow['table']['release_date'] %></p>
+        <p>上映時間</p>
+        <p><%= movieshow['table']['runtime'] %></p>
+        <p>ジャンル</p>
+        <p>
+          <% movieshow['table']['genres'].each do |genre| %>
+            <%= genre['table']['name'] %>
+          <% end %>
+        </p>
+      </div>
+    <div class="show-form">
+        <p>
+          <strong>Movie id:</strong>
+          <%= @movie_evaluation.movie_id %>
+        </p>
+        <p>
+          <%= link_to "同じ映画の評価を投稿する", new_movie_evaluation_path(movie_id:@movie_evaluation.movie_id,select_movie:true) %>
+        </p>
+      <p>
+        <strong>作成者:</strong>
+        <%= @movie_evaluation.user.name %>
       </p>
-      <p>あらすじ</p>
-      <p><%= movieshow['table']['overview'] %></p>
-    </div>
-    <p>
-      <strong>Movie id:</strong>
-      <%= @movie_evaluation.movie_id %>
-    </p>
-  </div>
-<div class="show_form">
-  <p>
-    <strong>作成者:</strong>
-    <%= @movie_evaluation.user.name %>
-  </p>
-  <p>
+      <p>
 
-    <strong>Short criticism:</strong>
-    <%= @movie_evaluation.short_criticism %>
-  </p>
+        <strong>Short criticism:</strong>
+        <%= @movie_evaluation.short_criticism %>
+      </p>
 
-  <p>
-    <strong>Score:</strong>
-    <%= @movie_evaluation.score %>
-  </p>
-  <div id="star-rate-<%= @movie_evaluation.id %>"></div>
-   <script>
-   $('#star-rate-<%= @movie_evaluation.id %>').raty({
-     size: 36,
-     starOff:  '<%= asset_path('star-off.png') %>',
-     starOn : '<%= asset_path('star-on.png') %>',
-     starHalf: '<%= asset_path('star-half.png') %>',
-     half: true,
-     readOnly: true,
-     score: <%= @movie_evaluation.score %>,
-   });
-   </script>
+      <p>
+        <strong>Score:</strong>
+        <%= @movie_evaluation.score %>
+      </p>
+      <div id="star-rate-<%= @movie_evaluation.id %>"></div>
+       <script>
+       $('#star-rate-<%= @movie_evaluation.id %>').raty({
+         size: 36,
+         starOff:  '<%= asset_path('star-off.png') %>',
+         starOn : '<%= asset_path('star-on.png') %>',
+         starHalf: '<%= asset_path('star-half.png') %>',
+         half: true,
+         readOnly: true,
+         score: <%= @movie_evaluation.score %>,
+       });
+       </script>
 
 
-   <p>
-     <strong>作成日:</strong>
-     <%= @movie_evaluation.created_at %>
-   </p>
+       <p>
+         <strong>作成日:</strong>
+         <%= @movie_evaluation.created_at %>
+       </p>
 
-   <p>
-     <strong>修正日:</strong>
-     <%= @movie_evaluation.updated_at %>
-   </p>
+       <p>
+         <strong>修正日:</strong>
+         <%= @movie_evaluation.updated_at %>
+       </p>
 
-  <% unless current_user ==nil %>
-    <% unless @movie_evaluation.user_id == current_user.id %>
-      <% if @like.present? %>
-        <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
-          <i class="fas fa-heart unlike-btn" ></i>
-        <%end %>
-      <% else %>
-        <%= link_to likes_path(movie_evaluation_id: @movie_evaluation.id),name:"like", method: :post, class: 'btn btn-primary',notice:"unlike" do %>
-          <i class="fas fa-heart like-btn"></i>
-        <%end %>
+      <% unless current_user ==nil %>
+        <% unless @movie_evaluation.user_id == current_user.id %>
+          <% if @like.present? %>
+            <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
+              <i class="fas fa-heart unlike-btn" ></i>
+            <%end %>
+          <% else %>
+            <%= link_to likes_path(movie_evaluation_id: @movie_evaluation.id),name:"like", method: :post, class: 'btn btn-primary',notice:"unlike" do %>
+              <i class="fas fa-heart like-btn"></i>
+            <%end %>
+          <% end %>
+        <% end %>
+        <%= @movie_evaluation.likes.count %>
       <% end %>
-    <% end %>
-    <%= @movie_evaluation.likes.count %>
-  <% end %>
-  <% if @movie_evaluation.user_id == current_user.id || current_user.admin  == true  %>
-     |
-    <%= link_to '編集', edit_movie_evaluation_path(@movie_evaluation) %> |
-    <%= link_to '削除', @movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %> |
-  <% end %>
-  <%= link_to '一覧へ', movie_evaluations_path %>
+      <% if @movie_evaluation.user_id == current_user.id || current_user.admin  == true  %>
+         |
+        <%= link_to '編集', edit_movie_evaluation_path(@movie_evaluation) %> |
+        <%= link_to '削除', @movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %> |
+      <% end %>
+      <%= link_to '一覧へ', movie_evaluations_path %>
+    </div>
+  </div>
 </div>

@@ -16,49 +16,61 @@
   </head>
 
   <body>
+  <div class="body-wrap">
+      <header class='header'>
 
-    <header class='header'>
+        <ul>
+          <span class="app_tilte">FilmParadiso</span>
+          <div class="link-list">
+            <% if user_signed_in? %>
+              <li><%= link_to "トップへ", tops_path %></li>
+              <li><%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %></li>
+              <li><%= link_to "プロフィールへ", users_show_path %></li>
+              <% if current_user.admin == true %>
+                <li><%= link_to "管理者画面", rails_admin_path,data: { confirm: '管理ページに移動しますか?' } %></li>
+              <% end %>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            <% else %>
+              <li><%= link_to "トップへ", tops_path %></li>
+              <li><%= link_to "新規登録", new_user_registration_path %></li>
 
-      <ul>
-        <span class="app_tilte">FilmParadiso</span>
-        <div class="link-list">
+              <li><%= link_to "ログイン", new_user_session_path %></li>
+            <% end %>
+          </div>
+        </ul>
+      </header>
+
+      <article class="article">
+        <ul class="side-menu">
           <% if user_signed_in? %>
-            <li><%= link_to "トップへ", tops_path %></li>
             <li><%= link_to "映画検索", search_tops_path %></li>
             <li><%= link_to "映画おすすめ", movie_recommends_path %></li>
             <li><%= link_to "お好みジャンル", new_favorite_genre_path %></li>
             <li><%= link_to "映画評価一覧", movie_evaluations_path %></li>
             <li><%= link_to "映画評価投稿", new_movie_evaluation_path %></li>
-
-            <li><%= link_to 'ユーザー一覧', users_index_path if user_signed_in? %></li>
-            <li><%= link_to "プロフィールへ", users_show_path %></li>
-            <% if current_user.admin == true %>
-              <li><%= link_to "管理者画面", rails_admin_path,data: { confirm: '管理ページに移動しますか?' } %></li>
-            <% end %>
-            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "メッセージ", conversations_path %></li>
           <% else %>
-            <li><%= link_to "トップへ", tops_path %></li>
-            <li><%= link_to "新規登録", new_user_registration_path %></li>
-
             <li><%= link_to "ログイン", new_user_session_path %></li>
           <% end %>
+        </ul>
+        <br>
+        <p class="side-img"><%= image_tag 'movie_kids.png',class:"side-img"%></p>
+        <div class="content-area">
+          <% if notice %>
+            <p class="alert alert-notice"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert alert-error"><%= alert %></p>
+          <% end %>
+          <%= yield %>
         </div>
-      </ul>
-    </header>
+      </article>
 
-    <article class="article">
-      <% if notice %>
-        <p class="alert alert-notice"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert alert-error"><%= alert %></p>
-      <% end %>
-      <%= yield %>
-    </article>
+      <footer class='footer'>
+        <p>🄫Film Paradiso | Create by KSJ | email : flyingsalmon21@gmail.com</p>
+      </footer>
+  </div>
 
-    <footer class='footer'>
-      <p>🄫Film Paradiso | Create by KSJ | email : flyingsalmon21@gmail.com</p>
-    </footer>
 
   </body>
 

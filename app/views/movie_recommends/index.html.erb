@@ -1,15 +1,15 @@
 <% moviegenre = JSON.parse((Tmdb::Genre.movie_list).to_json) %>
-<h3>あなたの好み</h3>
-<div class="genre-list">
+<h1>あなたの好み</h1>
+<div class="genre-select">
   <% @genre_id_array = [] %>
   <% @genre_name_array = [] %>
   <% @favorite_genres.each do |favorite| %>
       <% @genre_id_array.push(favorite.genre_id)%>
       <% @genre_name_array.push(favorite.genre_name)%>
-      <a class="genre"><%= favorite.genre_name%></a>
+      <p class="genre"><%= favorite.genre_name%></p>
   <% end %>
 </div>
-
+<br>
 <div class="recommended_all_list">
   <% if @genre_id_array.count == 3 %>
     <% moviegenre_recommend = JSON.parse((Tmdb::Movie.top_rated(filters={with_genres:@genre_id_array[0] & @genre_id_array[1] & @genre_id_array[2]})).to_json) %>
@@ -28,14 +28,16 @@
     <h3>本日の世界のトレンド</h3>
   <% end %>
 
-  <div class="recommend-wrapper">
     <% if moviegenre_recommend['table']['results'].count != 0 %>
+    <div class="movie-list-all">
       <% moviegenre_recommend['table']['results'].each do |recommended| %>
-        <div class="recommend">
+        <div class="movie-list">
           <% if recommended['table']['poster_path'].present? %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
+              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "poster-img" %></p>
+          <% else %>
+              <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
           <%end%>
-          <div class="recommend-upperinfo">
+          <div class="movie-info">
               <%if recommended['table']['title'].present?%>
                   <h5>タイトル</h5>
                   <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
@@ -48,36 +50,40 @@
           </div>
         </div>
       <% end %>
+    </div>
     <% else %>
       ==================
       <h3>該当する結果がありません！</h3>
       ==================
     <% end %>
-  </div>
 
 
   <% if @genre_id_array.count == 3 %>
     <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[1]}"%> ジャンルのおすすめ映画</h3>
     <div class="recommend-wrapper">
       <% if moviegenre_recommend_sub1['table']['results'].count != 0 %>
-      <% moviegenre_recommend_sub1['table']['results'].each do |recommended| %>
-        <div class="recommend">
-          <% if recommended['table']['poster_path'].present? %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
-          <%end%>
-          <div class="recommend-upperinfo">
-              <%if recommended['table']['title'].present?%>
-                  <h5>タイトル</h5>
-                  <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
-              <%end%>
+      <div class="movie-list-all">
+        <% moviegenre_recommend_sub1['table']['results'].each do |recommended| %>
+          <div class="movie-list">
+            <% if recommended['table']['poster_path'].present? %>
+                <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "poster-img" %></p>
+            <% else %>
+                <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
+            <%end%>
+            <div class="movie-info">
+                <%if recommended['table']['title'].present?%>
+                    <h5>タイトル</h5>
+                    <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+                <%end%>
 
-              <% if recommended['table']['release_date'].present? %>
-                  <h5>リリース</h5>
-                  <p class="release-date"><%= recommended['table']['release_date'] %></p>
-              <%end%>
+                <% if recommended['table']['release_date'].present? %>
+                    <h5>リリース</h5>
+                    <p class="release-date"><%= recommended['table']['release_date'] %></p>
+                <%end%>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
       <% else %>
         ==================
         <h3>該当する結果がありません！</h3>
@@ -88,24 +94,28 @@
     <h3><%="#{@genre_name_array[0]}と#{@genre_name_array[2]}"%> ジャンルのおすすめ映画</h3>
     <div class="recommend-wrapper">
       <% if moviegenre_recommend_sub2['table']['results'].count != 0 %>
-      <% moviegenre_recommend_sub2['table']['results'].each do |recommended| %>
-        <div class="recommend">
-          <% if recommended['table']['poster_path'].present? %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
-          <%end%>
-          <div class="recommend-upperinfo">
-              <%if recommended['table']['title'].present?%>
-                  <h5>タイトル</h5>
-                  <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
-              <%end%>
+      <div class="movie-list-all">
+        <% moviegenre_recommend_sub2['table']['results'].each do |recommended| %>
+          <div class="movie-list">
+            <% if recommended['table']['poster_path'].present? %>
+                <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "poster-img" %></p>
+            <% else %>
+                <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
+            <%end%>
+            <div class="movie-info">
+                <%if recommended['table']['title'].present?%>
+                    <h5>タイトル</h5>
+                    <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+                <%end%>
 
-              <% if recommended['table']['release_date'].present? %>
-                  <h5>リリース</h5>
-                  <p class="release-date"><%= recommended['table']['release_date'] %></p>
-              <%end%>
+                <% if recommended['table']['release_date'].present? %>
+                    <h5>リリース</h5>
+                    <p class="release-date"><%= recommended['table']['release_date'] %></p>
+                <%end%>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
       <% else %>
         ==================
         <h3>該当する結果がありません！</h3>
@@ -116,24 +126,28 @@
     <h3><%="#{@genre_name_array[1]}と#{@genre_name_array[2]}"%> ジャンルのおすすめ映画</h3>
     <div class="recommend-wrapper">
       <% if moviegenre_recommend_sub3['table']['results'].count != 0 %>
-      <% moviegenre_recommend_sub3['table']['results'].each do |recommended| %>
-        <div class="recommend">
-          <% if recommended['table']['poster_path'].present? %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "recommend-img" %></p>
-          <%end%>
-          <div class="recommend-upperinfo">
-              <%if recommended['table']['title'].present?%>
-                  <h5>タイトル</h5>
-                  <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+        <div class="movie-list-all">
+          <% moviegenre_recommend_sub3['table']['results'].each do |recommended| %>
+            <div class="movie-list">
+              <% if recommended['table']['poster_path'].present? %>
+                  <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + recommended['table']['poster_path'],class: "poster-img" %></p>
+              <% else %>
+                  <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
               <%end%>
+              <div class="movie-info">
+                  <%if recommended['table']['title'].present?%>
+                      <h5>タイトル</h5>
+                      <h6><%= link_to recommended['table']['title'] ,top_path(recommended['table']['id'])%></h6>
+                  <%end%>
 
-              <% if recommended['table']['release_date'].present? %>
-                  <h5>リリース</h5>
-                  <p class="release-date"><%= recommended['table']['release_date'] %></p>
-              <%end%>
-          </div>
+                  <% if recommended['table']['release_date'].present? %>
+                      <h5>リリース</h5>
+                      <p class="release-date"><%= recommended['table']['release_date'] %></p>
+                  <%end%>
+              </div>
+            </div>
+          <% end %>
         </div>
-      <% end %>
       <% else %>
         ==================
         <h3>該当する結果がありません！</h3>

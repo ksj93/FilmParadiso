@@ -1,8 +1,8 @@
 <h1>映画評価投稿</h1>
-<div class="movie_information_edit">
+<div class="evaluation-new-search">
   <%= render 'search', search: @movieinfo %>
 </div>
-<div class="evaluation_form">
+<div class="evaluation-form">
   <% if params[:movie_id] %>
     <br>
     <%= render 'information',info:@movie_evaluation %>
