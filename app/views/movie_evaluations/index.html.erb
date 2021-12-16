@@ -118,6 +118,7 @@
                  <% end %>
                  <% unless current_user ==nil %>
                    <% unless movie_evaluation.user_id == current_user.id %>
+                     <% @like = current_user.likes.find_by(movie_evaluation_id:movie_evaluation.id) %>
                      <% if @like.present? %>
                        <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
                          <i class="fas fa-heart unlike-btn" ></i>
