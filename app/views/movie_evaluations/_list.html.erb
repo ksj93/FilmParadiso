@@ -85,6 +85,18 @@
       </div>
   <% end %>
   <%= paginate movie_evaluations %>
+  <script>
+    $(window).on('scroll', function() {
+      scrollHeight = $(document).height();
+      scrollPosition = $(window).height() + $(window).scrollTop();
+      if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+        $('.jscroll').jscroll({
+          contentSelector: '.scroll-list',
+          nextSelector: 'span.next:last a'
+        });
+      }
+    });
+  </script>
 <% else %>
   <div class="blank-place">
     <h3>まだ、投稿がありません！あなたが最初投稿者になってくれませんか？</h3>

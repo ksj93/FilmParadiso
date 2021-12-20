@@ -16,7 +16,6 @@
 //= require jquery_ujs
 //= require jquery
 //= require jquery.jscroll.min.js
-//= require jquery/dist/jquery.js
 //= require popper.js/dist/umd/popper.js
 //= require bootstrap/dist/js/bootstrap.min
 //= require_tree .
@@ -27,18 +26,8 @@
 
 
 
-document.addEventListener("turbolinks:load", function () {
-  $(window).on('scroll', function() {
-    scrollHeight = $(document).height();
-    scrollPosition = $(window).height() + $(window).scrollTop();
-    if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
-      $('.jscroll').jscroll({
-        contentSelector: '.scroll-list',
-        nextSelector: 'span.next:last a'
-      });
-    }
-  });
-});
+
+
 
 /*!
  * Raty - A Star Rating Plugin
