@@ -14,6 +14,7 @@
 //= require turbolinks
 //= require activestorage
 //= require jquery_ujs
+//= require jquery
 //= require jquery.jscroll.min.js
 //= require jquery/dist/jquery.js
 //= require popper.js/dist/umd/popper.js
