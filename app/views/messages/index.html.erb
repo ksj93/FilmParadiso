@@ -21,7 +21,11 @@
         <div class="item">
           <div class="content">
             <div class="message-head">
-              <strong><%= message.user.name %></strong>
+              <% if message.user_id == current_user.id %>
+                <strong>私(<%= message.user.name %>)</strong>
+              <% else %>
+                <strong><%= message.user.name %></strong>
+              <% end %>
               <p><small><%= message.message_time %></small></p>
             </div>
             <div class="list">

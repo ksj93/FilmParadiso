@@ -13,6 +13,8 @@
 //= require rails-ujs
 //= require turbolinks
 //= require activestorage
+//= require jquery_ujs
+//= require jquery.jscroll.min.js
 //= require jquery/dist/jquery.js
 //= require popper.js/dist/umd/popper.js
 //= require bootstrap/dist/js/bootstrap.min
@@ -25,6 +27,16 @@
 
 
 
+$(window).on('scroll', function() {
+  scrollHeight = $(document).height();
+  scrollPosition = $(window).height() + $(window).scrollTop();
+  if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+    $('.jscroll').jscroll({
+      contentSelector: '.scroll-list',
+      nextSelector: 'span.next:last a'
+    });
+  }
+});
 
 
 /*!
@@ -37,7 +49,6 @@
  * version: 3.1.1
  *
  */
-
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     define(['jquery'], factory);
