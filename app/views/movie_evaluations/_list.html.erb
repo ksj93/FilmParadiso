@@ -1,6 +1,6 @@
-<%if params[:movie_id]%>
-  <% movieshow = JSON.parse((Tmdb::Movie.detail(params[:movie_id])).to_json) %>
-  <%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:movie_id],select_movie:true),class:"title-place" %>
+<%if params[:sort_movie_id]%>
+  <% movieshow = JSON.parse((Tmdb::Movie.detail(params[:sort_movie_id])).to_json) %>
+  <%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:sort_movie_id],select_movie:true),class:"title-place" %>
 <%else%>
   <%= link_to '新しい投稿', new_movie_evaluation_path,class:"title-place" %>
 <%end%>
@@ -8,14 +8,14 @@
 <h4 class="title-place">
   <%if params[:popular]%>
     本日の人気評価
-  <%elsif params[:fresh]%>
-    最近投稿された評価
-  <%elsif params[:movie_id]%>
+  <%elsif params[:my_evaluation]%>
+    あなたが投稿した評価
+  <%elsif params[:sort_movie_id]%>
     映画「<%= movieshow['table']['title'] %>」に関する評価
   <%elsif params[:id]%>
     「<%= user.name%>」様の投稿した評価
   <%else%>
-    あなたが投稿した評価
+    最近投稿された評価
   <%end%>
 </h4>
 <div class="card-wrapper_list">
@@ -64,6 +64,7 @@
                    <% end %>
                    <% unless current_user ==nil %>
                      <% unless movie_evaluation.user_id == current_user.id %>
+                     <% @like = current_user.likes.find_by(movie_evaluation_id:movie_evaluation.id) %>
                        <% if @like.present? %>
                          <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
                            <i class="fas fa-heart unlike-btn" ></i>

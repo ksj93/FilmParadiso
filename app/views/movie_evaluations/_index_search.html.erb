@@ -1,0 +1,37 @@
+<h5>評価を投稿したい映画の検索</h5>
+<div>
+  <%= form_with(model: search, local:true,method: :get) do |form| %>
+    <%=form.text_field:search_title,:placeholder => "映画のタイトルを入力して検索",size:30 %>
+    <%= form.submit("検索") %>
+  <% end %>
+</div>
+
+<%if params[:search_title].present? %>
+    <% movieinfo = JSON.parse((Tmdb::Search.movie(params[:search_title])).to_json) %>
+    <p><%= params[:search_title] %>の検索結果</p>
+    =====================
+    <% i = 0 %>
+    <table class="search-table">
+      <tr>
+        <th>タイトル</th>
+        <th>リリース</th>
+        <th>セレクター</th>
+      </tr>
+        <% while i < movieinfo['table']['results'].count %>
+          <tr class="movie-info-for-index">
+              <%if movieinfo['table']['results'][i]['table']['title'].present?%>
+                <td><%= link_to movieinfo['table']['results'][i]['table']['title'],top_path(movieinfo['table']['results'][i]['table']['id']) %></td>
+              <%end%>
+
+              <% if movieinfo['table']['results'][i]['table']['release_date'].present? %>
+                <td><%= movieinfo['table']['results'][i]['table']['release_date'] %></td>
+              <%else%>
+                <td>情報がありません</td>
+              <%end%>
+            <td class="select_movie"><%=link_to "選択",movie_evaluations_path(movie_title:movieinfo['table']['results'][i]['table']['title'],movie_id:movieinfo['table']['results'][i]['table']['id'],index_select_movie:"true")%></td>
+          </tr>
+          <% i += 1%>
+        <%end%>
+    </table>
+<%else%>
+<%end%>

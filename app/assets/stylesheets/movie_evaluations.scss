@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.index-evaluation-form{
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+  width: 70%;
+  border-radius: 12px;
+  margin: 5% 15%;
+  padding: 3%;
+}
+
+.search-table{
+  width: 90%;
+  margin: 2% 5%;
+}
+
 .evaluation-list-all{
   display: flex;
   flex-wrap: wrap;

@@ -48,7 +48,7 @@
 <h3>映画「<%= movieshow['table']['title'] %>」の評価</h3>
 <%= link_to "「"+movieshow['table']['title']+"」の評価を投稿", new_movie_evaluation_path(movie_id:params[:id],select_movie:true) %>
 <br>
-<%= link_to 'もっと見る', index_full_movie_evaluations_path(movie_id:params[:id]) %>
+<%= link_to 'もっと見る', movie_evaluations_path(sort_movie_id:params[:id]) %>
 
 
 
@@ -84,6 +84,21 @@
            <p class="card-text"><small class="text-muted"><%= movie_evaluation.created_at %></small></p>
            <p class="card-text"><small class="crud-menu">
              <%= link_to '詳細', movie_evaluation %>
+             <% unless current_user ==nil %>
+               <% unless movie_evaluation.user_id == current_user.id %>
+               <% @like = current_user.likes.find_by(movie_evaluation_id:movie_evaluation.id) %>
+                 <% if @like.present? %>
+                   <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
+                     <i class="fas fa-heart unlike-btn" ></i>
+                   <%end %>
+                 <% else %>
+                   <%= link_to likes_path(movie_evaluation_id: movie_evaluation.id),name:"like", method: :post, class: 'btn btn-primary',notice:"unlike" do %>
+                     <i class="fas fa-heart like-btn"></i>
+                   <%end %>
+                 <% end %>
+               <% end %>
+               <%= movie_evaluation.likes.count %>
+             <% end %>
              <% if current_user != nil %>
                <% if movie_evaluation.user_id == current_user.id || current_user.admin  == true %>
                   |

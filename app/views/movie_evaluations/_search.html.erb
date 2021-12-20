@@ -2,7 +2,7 @@
 <div>
   <%= form_with(model: search, local:true,method: :get) do |form| %>
     <%=form.text_field:search_title,:placeholder => "映画のタイトルを入力して検索",size:50 %>
-    <%= form.submit("search") %>
+    <%= form.submit("検索") %>
   <% end %>
 </div>
 
