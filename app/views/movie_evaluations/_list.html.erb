@@ -18,7 +18,8 @@
     最近投稿された評価
   <%end%>
 </h4>
-<div class="card-wrapper_list">
+<div class="scroll-list jscroll">
+  <% #card-wrapper_list %>
 <% if movie_evaluations.count != 0 %>
   <% movie_evaluations.each do |movie_evaluation| %>
       <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
@@ -83,9 +84,11 @@
           </div>
       </div>
   <% end %>
+  <%= paginate movie_evaluations %>
 <% else %>
   <div class="blank-place">
     <h3>まだ、投稿がありません！あなたが最初投稿者になってくれませんか？</h3>
   </div>
 <% end %>
+
 </div>

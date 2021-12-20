@@ -2,6 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+nav.pagination {
+  display: none;
+}
+.scroll-list {
+  padding: 0;
+}
+
 .index-evaluation-form{
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
   width: 70%;

@@ -7,16 +7,17 @@ class MovieEvaluationsController < ApplicationController
   # GET /movie_evaluations or /movie_evaluations.json
   def index
     if params[:popular]
-      @movie_evaluations = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
+      sort_evaluation = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
+      @movie_evaluations = Kaminari.paginate_array(sort_evaluation).page(params[:page]).per(5)
     elsif params[:my_evaluation]
-      @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC")
+      @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC").page(params[:page]).per(5)
     elsif params[:sort_movie_id]
-      @movie_evaluations = MovieEvaluation.where(movie_id:params[:sort_movie_id])
+      @movie_evaluations = MovieEvaluation.where(movie_id:params[:sort_movie_id]).page(params[:page]).per(5)
     elsif params[:id]
       @user = User.find(params[:id])
-      @movie_evaluations = MovieEvaluation.where(user_id:params[:id])
+      @movie_evaluations = MovieEvaluation.where(user_id:params[:id]).page(params[:page]).per(5)
     else
-      @movie_evaluations = MovieEvaluation.order(created_at:"DESC")
+      @movie_evaluations = MovieEvaluation.order(created_at:"DESC").page(params[:page]).per(5)
     end
     @movie_evaluation = MovieEvaluation.new
     if params[:commit]=="登録する"
