@@ -1,5 +1,6 @@
 <div class="conversation-index">
   <h2>メッセージ一覧</h2>
+  <p><%= link_to "ユーザー一覧へ",users_index_path %></p>
   <% @conversations.each do |conversation| %>
     <div class = "conversation-tag-index">
       <% if conversation.target_user(current_user).present? %>

@@ -1,211 +1,29 @@
-<h1>映画評価の一覧</h1>
-<%= link_to '新しい投稿', new_movie_evaluation_path %>
+<h1>映画評価の投稿一覧</h1>
 
-<h5>あなたが投稿した評価</h5>
-<%= link_to 'もっと見る', index_full_movie_evaluations_path %>
-<div class="evaluation-list-pack">
-<% @movie_evaluations.each do |movie_evaluation| %>
-  <%if movie_evaluation.user_id == current_user.id %>
-    <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
-    <div class="evaluation-list-all">
-        <div class="evaluation-list">
-          <div>
-            <%if movieshow['table']['poster_path']== nil %>
-              <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
-            <% else %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "poster-img" %></p>
-            <% end %>
-            <p><%= link_to movieshow['table']['title'], top_path(movieshow['table']['id']),class:"movie-evaluation-title" %></p>
-          </div>
 
-          <div class="evaluation-info">
-            <h5><%= movie_evaluation.user.name %></h5>
-            <div id="star-rate-<%= movie_evaluation.id %>"></div>
-            <%= movie_evaluation.score %>
-             <script>
-             $('#star-rate-<%= movie_evaluation.id %>').raty({
-               size: 36,
-               starOff:  '<%= asset_path('star-off.png') %>',
-               starOn : '<%= asset_path('star-on.png') %>',
-               starHalf: '<%= asset_path('star-half.png') %>',
-               half: true,
-               readOnly: true,
-               score: <%= movie_evaluation.score %>,
-             });
-             </script>
-             <p><%= movie_evaluation.short_criticism %></p>
-             <p>
-              <small class="text-muted"><%= movie_evaluation.created_at %></small>
-             </p>
-             <p>
-               <small class="crud-menu">
-                 <%= link_to '詳細', movie_evaluation %>
-                 <% if current_user != nil %>
-                   <% if movie_evaluation.user_id == current_user.id or current_user.admin == true %>
-                      |
-                     <%= link_to '編集', edit_movie_evaluation_path(movie_evaluation) %> |
-                     <%= link_to '削除', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>
-                   <% end %>
-                 <% end %>
-                 <% unless current_user ==nil %>
-                   <% unless movie_evaluation.user_id == current_user.id %>
-                     <% if @like.present? %>
-                       <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
-                         <i class="fas fa-heart unlike-btn" ></i>
-                       <%end %>
-                     <% else %>
-                       <%= link_to likes_path(movie_evaluation_id: movie_evaluation.id),name:"like", method: :post, class: 'btn btn-primary',notice:"unlike" do %>
-                         <i class="fas fa-heart like-btn"></i>
-                       <%end %>
-                     <% end %>
-                   <% end %>
-                   <%= movie_evaluation.likes.count %>
-                 <% end %>
-               </small>
-             </p>
-          </div>
-        </div>
-    </div>
+<div class="index-evaluation-form">
+    <h2>簡易新規投稿</h2>
+    <%if params[:index_select_movie] == nil %>
+      <p><small>※まず、評価したい映画を検索した選択してください</small></p>
+      <p><small>映画の情報の確認しながら投稿したい方は<%= link_to '新規投稿(詳細)ページ', new_movie_evaluation_path %>へ</small></p>
+      <br>
+      <div class="search">
+        <%= render 'index_search', search: @movieinfo%>
+      </div>
     <% end %>
-<% end %>
+    <%if params[:index_select_movie] %>
+      <div class="form">
+        <%= render 'index_form', movie_evaluation: @movie_evaluation %>
+      </div>
+    <% end %>
 </div>
-
-
-<h5>本日の人気</h5>
-<%= link_to 'もっと見る', index_full_movie_evaluations_path(popular:'true') %>
-<div class="evaluation-list-pack">
-<% @movie_evaluations_order_likes.each do |movie_evaluation| %>
-    <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
-    <div class="evaluation-list-all">
-        <div class="evaluation-list">
-          <div>
-            <%if movieshow['table']['poster_path']== nil %>
-              <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
-            <% else %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "poster-img" %></p>
-            <% end %>
-            <p><%= link_to movieshow['table']['title'], top_path(movieshow['table']['id']),class:"movie-evaluation-title" %></p>
-          </div>
-
-          <div class="evaluation-info">
-            <h5><%= movie_evaluation.user.name %></h5>
-            <div id="star2-rate-<%= movie_evaluation.id %>"></div>
-            <%= movie_evaluation.score %>
-             <script>
-             $('#star2-rate-<%= movie_evaluation.id %>').raty({
-               size: 36,
-               starOff:  '<%= asset_path('star-off.png') %>',
-               starOn : '<%= asset_path('star-on.png') %>',
-               starHalf: '<%= asset_path('star-half.png') %>',
-               half: true,
-               readOnly: true,
-               score: <%= movie_evaluation.score %>,
-             });
-             </script>
-             <p><%= movie_evaluation.short_criticism %></p>
-             <p>
-              <small class="text-muted"><%= movie_evaluation.created_at %></small>
-             </p>
-             <p>
-               <small class="crud-menu">
-                 <%= link_to '詳細', movie_evaluation %>
-                 <% if current_user != nil %>
-                   <% if movie_evaluation.user_id == current_user.id or current_user.admin == true %>
-                      |
-                     <%= link_to '編集', edit_movie_evaluation_path(movie_evaluation) %> |
-                     <%= link_to '削除', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>
-                   <% end %>
-                 <% end %>
-                 <% unless current_user ==nil %>
-                   <% unless movie_evaluation.user_id == current_user.id %>
-                     <% @like = current_user.likes.find_by(movie_evaluation_id:movie_evaluation.id) %>
-                     <% if @like.present? %>
-                       <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
-                         <i class="fas fa-heart unlike-btn" ></i>
-                       <%end %>
-                     <% else %>
-                       <%= link_to likes_path(movie_evaluation_id: movie_evaluation.id),name:"like", method: :post, class: 'btn btn-primary',notice:"unlike" do %>
-                         <i class="fas fa-heart like-btn"></i>
-                       <%end %>
-                     <% end %>
-                   <% end %>
-                   <%= movie_evaluation.likes.count %>
-                 <% end %>
-               </small>
-             </p>
-          </div>
-        </div>
-    </div>
-<% end %>
+<div class="sort-menu">
+  <a>並び順</a>
+  <%= link_to '投稿順に並べる', movie_evaluations_path %>  /
+  <%= link_to '人気評価順に並べる', movie_evaluations_path(popular:'true') %>  /
+  <%= link_to '自分の投稿を見る', movie_evaluations_path(my_evaluation:'true') %>
 </div>
-
-<h5>最近投稿された評価</h5>
-<%= link_to 'もっと見る', index_full_movie_evaluations_path(fresh:'true') %>
-<div class="evaluation-list-pack">
-<% @movie_evaluations_order_create.each do |movie_evaluation| %>
-    <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
-    <div class="evaluation-list-all">
-        <div class="evaluation-list">
-          <div>
-            <%if movieshow['table']['poster_path']== nil %>
-              <p><%= image_tag 'no_image.png',class: "poster-img" %></p>
-            <% else %>
-              <p><%= image_tag 'https://image.tmdb.org/t/p/w1280' + movieshow['table']['poster_path'],class: "poster-img" %></p>
-            <% end %>
-            <p><%= link_to movieshow['table']['title'], top_path(movieshow['table']['id']),class:"movie-evaluation-title" %></p>
-          </div>
-
-          <div class="evaluation-info">
-            <h5><%= movie_evaluation.user.name %></h5>
-            <div id="starｱ-rate-<%= movie_evaluation.id %>"></div>
-            <%= movie_evaluation.score %>
-             <script>
-             $('#starｱ-rate-<%= movie_evaluation.id %>').raty({
-               size: 36,
-               starOff:  '<%= asset_path('star-off.png') %>',
-               starOn : '<%= asset_path('star-on.png') %>',
-               starHalf: '<%= asset_path('star-half.png') %>',
-               half: true,
-               readOnly: true,
-               score: <%= movie_evaluation.score %>,
-             });
-             </script>
-             <p><%= movie_evaluation.short_criticism %></p>
-             <p>
-              <small class="text-muted"><%= movie_evaluation.created_at %></small>
-             </p>
-             <p>
-               <small class="crud-menu">
-                 <%= link_to '詳細', movie_evaluation %>
-                 <% if current_user != nil %>
-                   <% if movie_evaluation.user_id == current_user.id or current_user.admin == true %>
-                      |
-                     <%= link_to '編集', edit_movie_evaluation_path(movie_evaluation) %> |
-                     <%= link_to '削除', movie_evaluation, method: :delete, data: { confirm: 'Are you sure?' } %>
-                   <% end %>
-                 <% end %>
-                 <% unless current_user ==nil %>
-                   <% unless movie_evaluation.user_id == current_user.id %>
-                     <% if @like.present? %>
-                       <%= link_to like_path(id: @like.id),name:"like", method: :delete, class: 'btn btn-danger',notice:"like" do %>
-                         <i class="fas fa-heart unlike-btn" ></i>
-                       <%end %>
-                     <% else %>
-                       <%= link_to likes_path(movie_evaluation_id: movie_evaluation.id),name:"like", method: :post, class: 'btn btn-primary',notice:"unlike" do %>
-                         <i class="fas fa-heart like-btn"></i>
-                       <%end %>
-                     <% end %>
-                   <% end %>
-                   <%= movie_evaluation.likes.count %>
-                 <% end %>
-               </small>
-             </p>
-          </div>
-        </div>
-    </div>
-<% end %>
+<div class="list-place">
+  <%= render 'list', movie_evaluations: @movie_evaluations,user:@user %>
 </div>
-
-
-
-<br>
+<%= link_to '一覧へ', movie_evaluations_path %>

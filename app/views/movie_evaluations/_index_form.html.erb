@@ -1,0 +1,63 @@
+<%= form_with(model: movie_evaluation, local: true,method: :get) do |form| %>
+
+
+
+
+      <div class="field">
+        <%= form.label :映画識別id %>
+        <%if movie_evaluation.movie_id.present? %>
+          <%=movie_evaluation.movie_id%>
+          <%if movie_evaluation.short_criticism.present? && movie_evaluation.score.present? %>
+
+          <%else%>
+            <%=link_to "映画idセット(新規投稿だけ)", new_movie_evaluation_path(movie_id:movie_evaluation.movie_id,select_movie:'true') %>
+            <p><small>※"新規投稿"エラーになった場合、必ず「映画idセット」をもう一回クリックしてください！</small></p>
+          <%end%>
+        <%else%>
+          <%= params[:movie_id] %>
+        <%end%>
+
+        <% if params[:index_select_movie].present? %>
+          <p>映画タイトル : <%= params[:movie_title] %></p>
+          <%= form.hidden_field :movie_id,:value => params[:movie_id] %>
+        <% end %>
+
+      </div>
+
+      <div class="field" id="star-index">
+        <%= form.label :評点 %>
+        <%if movie_evaluation.score.present? %>
+          <div>
+            <%=movie_evaluation.score%>点
+          </div>
+        <%end%>
+        <%= form.hidden_field :score, id: :review_star  %>
+      </div>
+
+
+    <div class="field">
+      <%= form.label :一言評価 %>
+      <p><%= form.text_area :short_criticism, placeholder: '50字以内で映画を評言', size: "50x2" %></p>
+    </div>
+
+
+
+
+    <script>
+    $('#star-index').raty({
+      size     : 36,
+      starOff:  '<%= asset_path('star-off.png') %>',
+      starOn : '<%= asset_path('star-on.png') %>',
+      starHalf: '<%= asset_path('star-half.png') %>',
+      scoreName: 'movie_evaluation[score]',
+      half: true,
+    });
+    </script>
+
+
+    <div class="actions">
+      <%= form.submit%>
+    </div>
+    <br>
+    <p><%=link_to "検索に戻る",movie_evaluations_path%></p>
+<% end %>

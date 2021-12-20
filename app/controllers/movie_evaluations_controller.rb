@@ -6,26 +6,54 @@ class MovieEvaluationsController < ApplicationController
 
   # GET /movie_evaluations or /movie_evaluations.json
   def index
-    # @like= current_user.likes.find_by(movie_evaluation_id:@movie_evaluation.id)
-    @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC").limit(3)
-    @movie_evaluations_order_create = MovieEvaluation.order(created_at:"DESC").limit(3)
-    @movie_evaluations_order_likes = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}[0..2]
-  end
-
-  def index_full
     if params[:popular]
       @movie_evaluations = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
-    elsif params[:fresh]
-      @movie_evaluations = MovieEvaluation.order(created_at:"DESC")
-    elsif params[:movie_id]
-      @movie_evaluations = MovieEvaluation.where(movie_id:params[:movie_id])
+    elsif params[:my_evaluation]
+      @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC")
+    elsif params[:sort_movie_id]
+      @movie_evaluations = MovieEvaluation.where(movie_id:params[:sort_movie_id])
     elsif params[:id]
       @user = User.find(params[:id])
       @movie_evaluations = MovieEvaluation.where(user_id:params[:id])
     else
-      @movie_evaluations = MovieEvaluation.where(user_id:current_user.id)
+      @movie_evaluations = MovieEvaluation.order(created_at:"DESC")
     end
+    @movie_evaluation = MovieEvaluation.new
+    if params[:commit]=="登録する"
+      if params[:movie_evaluation][:score].present? && params[:movie_evaluation][:short_criticism].present?
+        @movie_evaluation = MovieEvaluation.new(movie_id:params[:movie_evaluation][:movie_id],score:params[:movie_evaluation][:score],short_criticism:params[:movie_evaluation][:short_criticism])
+        @movie_evaluation.user_id = current_user.id
+        if @movie_evaluation.save
+          redirect_to movie_evaluations_path,notice:"投稿しました！"
+        else
+          redirect_to movie_evaluations_path,notice:"不備の情報があります！"
+        end
+      else
+        redirect_to movie_evaluations_path,notice:"不備の情報があります！"
+      end
+    end
+
+
+    # @like= current_user.likes.find_by(movie_evaluation_id:@movie_evaluation.id)
+    # @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC").limit(3)
+    # @movie_evaluations_order_create = MovieEvaluation.order(created_at:"DESC").limit(3)
+    # @movie_evaluations_order_likes = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}[0..2]
   end
+
+  # def index_full
+  #   if params[:popular]
+  #     @movie_evaluations = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
+  #   elsif params[:fresh]
+  #     @movie_evaluations = MovieEvaluation.order(created_at:"DESC")
+  #   elsif params[:movie_id]
+  #     @movie_evaluations = MovieEvaluation.where(movie_id:params[:movie_id])
+  #   elsif params[:id]
+  #     @user = User.find(params[:id])
+  #     @movie_evaluations = MovieEvaluation.where(user_id:params[:id])
+  #   else
+  #     @movie_evaluations = MovieEvaluation.where(user_id:current_user.id)
+  #   end
+  # end
 
   # GET /movie_evaluations/1 or /movie_evaluations/1.json
   def show

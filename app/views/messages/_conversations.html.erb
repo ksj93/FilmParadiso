@@ -1,5 +1,6 @@
 <div class="conversation-list">
   <h2>メッセージ一覧</h2>
+  <p><%= link_to "ユーザー一覧へ",users_index_path %></p>
   <% if conversations != nil %>
     <% conversations.each do |conversation| %>
       <div class = "conversation-tag">
