@@ -4,11 +4,13 @@
 
 
 nav.pagination {
-  display: none;
+  display:block;
+  margin: 10px;
 }
-.scroll-list {
-  padding: 0;
-}
+// .scroll-list {
+//   padding: 0;
+// }
+
 
 .index-evaluation-form{
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
