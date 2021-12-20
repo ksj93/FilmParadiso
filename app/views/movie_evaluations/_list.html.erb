@@ -18,8 +18,8 @@
     最近投稿された評価
   <%end%>
 </h4>
-<div class="scroll-list jscroll">
-  <% #card-wrapper_list %>
+<p><%= paginate movie_evaluations %></p>
+<div class="card-wrapper_list">
 <% if movie_evaluations.count != 0 %>
   <% movie_evaluations.each do |movie_evaluation| %>
       <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
