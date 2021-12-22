@@ -15,7 +15,7 @@
         <p>リリース</p>
         <p><%= movieshow['table']['release_date'] %></p>
         <p>上映時間</p>
-        <p><%= movieshow['table']['runtime'] %></p>
+        <p><%= movieshow['table']['runtime'] %>分</p>
         <p>ジャンル</p>
         <p>
           <% movieshow['table']['genres'].each do |genre| %>
@@ -25,7 +25,7 @@
       </div>
     <div class="show-form">
         <p>
-          <strong>Movie id:</strong>
+          <strong>映画id:</strong>
           <%= @movie_evaluation.movie_id %>
         </p>
         <p>
@@ -40,12 +40,12 @@
       </p>
       <p>
 
-        <strong>Short criticism:</strong>
+        <strong>批評:</strong>
         <%= @movie_evaluation.short_criticism %>
       </p>
 
       <p>
-        <strong>Score:</strong>
+        <strong>評点:</strong>
         <%= @movie_evaluation.score %>
       </p>
       <div id="star-rate-<%= @movie_evaluation.id %>"></div>
