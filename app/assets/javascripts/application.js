@@ -14,8 +14,6 @@
 //= require turbolinks
 //= require activestorage
 //= require jquery
-//= require jquery_ujs
-// jquery.jscroll.min.js
 //= require popper.js/dist/umd/popper.js
 //= require bootstrap/dist/js/bootstrap.min
 //= require_tree .
