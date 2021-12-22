@@ -45,6 +45,8 @@ class User < ApplicationRecord
   has_many :followers,through: :passive_relationships,source: :follower
   has_many :likes, dependent: :destroy
   has_many :like_evaluations, through: :likes , source: :movie_evaluation, dependent: :destroy
+  has_many :user_send_conversations,foreign_key:'sender_id',class_name:'Conversation',dependent: :destroy
+  has_many :user_recipient_conversations,foreign_key:'recipient_id',class_name:'Conversation',dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :favorite_genres, dependent: :destroy
 end
