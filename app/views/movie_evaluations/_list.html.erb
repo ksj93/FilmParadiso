@@ -20,6 +20,7 @@
 </h4>
 <p><%= paginate movie_evaluations %></p>
 <div class="card-wrapper_list">
+<!-- <div class="scroll-list jscroll"> -->
 <% if movie_evaluations.count != 0 %>
   <% movie_evaluations.each do |movie_evaluation| %>
       <% movieshow = JSON.parse((Tmdb::Movie.detail(movie_evaluation.movie_id)).to_json) %>
@@ -35,7 +36,7 @@
             </div>
 
             <div class="evaluation-info">
-              <h5><%= movie_evaluation.user.name %></h5>
+              <h5><%= link_to movie_evaluation.user.name,users_show_path(id:movie_evaluation.user_id) %></h5>
               <div id="star-rate-<%= movie_evaluation.id %>"></div>
               <%= movie_evaluation.score %>
                <script>
