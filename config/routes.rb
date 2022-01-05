@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # resources :users, only: [:index,:show]
   get 'users/show'
   get 'users/index'
+  get 'users/search'
   resources :relationships, only: [:create, :destroy,:index]
   resources :likes, only: [:create, :destroy,:index]
   devise_for :users, controllers: { registrations: 'users/registrations' }

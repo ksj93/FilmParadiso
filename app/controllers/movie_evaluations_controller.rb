@@ -10,6 +10,11 @@ class MovieEvaluationsController < ApplicationController
     if params[:popular]
       sort_evaluation = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
       @movie_evaluations = Kaminari.paginate_array(sort_evaluation).page(params[:page]).per(10)
+    elsif params[:sort_movie_id]
+      @movie_evaluations = MovieEvaluation.where(movie_id:params[:sort_movie_id]).page(params[:page]).per(10)
+    elsif params[:id]
+      @user = User.find(params[:id])
+      @movie_evaluations = MovieEvaluation.where(user_id:params[:id]).page(params[:page]).per(10)
     else
       @movie_evaluations = @q.result.order(created_at:"DESC").page(params[:page]).per(10)
     end
