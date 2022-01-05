@@ -1,6 +1,4 @@
 <h1>映画評価の投稿一覧</h1>
-
-
 <div class="index-evaluation-form">
     <h2>簡易新規投稿</h2>
     <%if params[:index_select_movie] == nil %>
@@ -17,11 +15,25 @@
       </div>
     <% end %>
 </div>
+<div class="ransack_form">
+  <%= search_form_for @q, url:search_movie_evaluations_path do |f| %>
+    <%= f.label:user_name_cont, "ユーザー名" %>
+    <%= f.search_field:user_name_cont %>
+    <%= f.label:score_eq, "評点" %>
+    <%= f.select:score_eq ,[[1, 1], [1.5, 1.5], [2, 2], [2.5, 2.5], [3, 3], [3.5, 3.5], [4, 4], [4.5, 4.5], [5, 5]], include_blank: "選択して下さい" %>
+    <%= f.submit%>
+  <% end %>
+</div>
 <div class="sort-menu">
   <a>並び順</a>
-  <%= link_to '投稿順に並べる', movie_evaluations_path %>  /
-  <%= link_to '人気評価順に並べる', movie_evaluations_path(popular:'true') %>  /
-  <%= link_to '自分の投稿を見る', movie_evaluations_path(my_evaluation:'true') %>
+  <% if params[:popular] %>
+    <%= link_to '元に戻る', movie_evaluations_path %>  /
+  <% else %>
+    <%= link_to '人気評価順に並べる', movie_evaluations_path(popular:'true') %>  /
+  <% end %>
+  <%= sort_link(@q, :created_at,"作成順に並び") %>  /
+  <%= sort_link(@q, :user_name,"作成者名で並び") %>  /
+  <%= sort_link(@q, :score,"評点で並び") %>
 </div>
 <div class="list-place">
   <%= render 'list', movie_evaluations: @movie_evaluations,user:@user %>

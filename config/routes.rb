@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   resources :movie_evaluations do
     collection do
       get 'search'
-      get 'index_full'
     end
   end
   resources :tops do
