@@ -1,15 +1,6 @@
-<h2>ユーザー一覧</h2>
-
-<div class="ransack_form">
-  <h5>ユーザー検索</h5>
-  <%= search_form_for @q, url:users_search_path do |f| %>
-    <%= f.label:name_cont, "ユーザー名" %>
-    <%= f.search_field:name_cont %>
-    <%= f.submit%>
-  <% end %>
-</div>
+<h1>検索結果</h1>
 <div class="user-index">
-  <% @users.each do |user| %>
+  <% @results.each do |user| %>
     <% if user.id != current_user.id %>
       <div class="user-info">
         <p>
@@ -26,4 +17,3 @@
     <% end %>
   <% end %>
 </div>
-<p><%= paginate @users %></p>

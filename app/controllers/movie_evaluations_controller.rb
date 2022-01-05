@@ -2,6 +2,7 @@ class MovieEvaluationsController < ApplicationController
   before_action :set_movie_evaluation, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
   before_action :current_user?,only:[:edit,:destroy]
+  before_action :set_q, only:[:index,:search]
   # before_action :guest_user?, only: [:new,:edit,:destroy]
 
   # GET /movie_evaluations or /movie_evaluations.json
@@ -9,16 +10,15 @@ class MovieEvaluationsController < ApplicationController
     if params[:popular]
       sort_evaluation = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
       @movie_evaluations = Kaminari.paginate_array(sort_evaluation).page(params[:page]).per(10)
-    elsif params[:my_evaluation]
-      @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC").page(params[:page]).per(10)
     elsif params[:sort_movie_id]
       @movie_evaluations = MovieEvaluation.where(movie_id:params[:sort_movie_id]).page(params[:page]).per(10)
     elsif params[:id]
       @user = User.find(params[:id])
       @movie_evaluations = MovieEvaluation.where(user_id:params[:id]).page(params[:page]).per(10)
     else
-      @movie_evaluations = MovieEvaluation.order(created_at:"DESC").page(params[:page]).per(10)
+      @movie_evaluations = @q.result.order(created_at:"DESC").page(params[:page]).per(10)
     end
+
     @movie_evaluation = MovieEvaluation.new
     if params[:commit]=="登録する"
       if params[:movie_evaluation][:score].present? && params[:movie_evaluation][:short_criticism].present?
@@ -33,28 +33,19 @@ class MovieEvaluationsController < ApplicationController
         redirect_to movie_evaluations_path,notice:"不備の情報があります！"
       end
     end
-
-
-    # @like= current_user.likes.find_by(movie_evaluation_id:@movie_evaluation.id)
-    # @movie_evaluations = MovieEvaluation.where(user_id:current_user.id).order(created_at:"DESC").limit(3)
-    # @movie_evaluations_order_create = MovieEvaluation.order(created_at:"DESC").limit(3)
-    # @movie_evaluations_order_likes = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}[0..2]
   end
 
-  # def index_full
-  #   if params[:popular]
-  #     @movie_evaluations = MovieEvaluation.includes(:like_users).sort{|a,b| b.like_users.size <=> a.like_users.size}
-  #   elsif params[:fresh]
-  #     @movie_evaluations = MovieEvaluation.order(created_at:"DESC")
-  #   elsif params[:movie_id]
-  #     @movie_evaluations = MovieEvaluation.where(movie_id:params[:movie_id])
-  #   elsif params[:id]
-  #     @user = User.find(params[:id])
-  #     @movie_evaluations = MovieEvaluation.where(user_id:params[:id])
-  #   else
-  #     @movie_evaluations = MovieEvaluation.where(user_id:current_user.id)
-  #   end
+  # def index_new
+  #
   # end
+  #
+  # def index_create
+  #
+  # end
+
+  def search
+    @results = @q.result
+  end
 
   # GET /movie_evaluations/1 or /movie_evaluations/1.json
   def show
@@ -110,11 +101,10 @@ class MovieEvaluationsController < ApplicationController
     end
   end
 
-  def search
-
-  end
-
   private
+    def set_q
+      @q = MovieEvaluation.ransack(params[:q])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_movie_evaluation
       @movie_evaluation = MovieEvaluation.find(params[:id])
