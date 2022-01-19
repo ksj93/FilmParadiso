@@ -26,16 +26,16 @@ class User < ApplicationRecord
       end
   end
 
-  def self.guest_admin
-      find_or_create_by!(email: "guest_admin@filmparadiso.com") do |user|
-        user.name = "guest admin user"
-        user.email = "guest_admin@filmparadiso.com"
-        user.password = SecureRandom.urlsafe_base64
-        user.admin = true
-        user.guest = true
-        user.confirmed_at = Time.now
-      end
-  end
+  # def self.guest_admin
+  #     find_or_create_by!(email: "guest_admin@filmparadiso.com") do |user|
+  #       user.name = "guest admin user"
+  #       user.email = "guest_admin@filmparadiso.com"
+  #       user.password = SecureRandom.urlsafe_base64
+  #       user.admin = true
+  #       user.guest = true
+  #       user.confirmed_at = Time.now
+  #     end
+  # end
 
   validates :name,presence:true
   has_many:movie_evaluations, dependent: :destroy
